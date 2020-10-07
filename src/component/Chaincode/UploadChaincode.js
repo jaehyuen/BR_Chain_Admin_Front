@@ -10,8 +10,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import ApiService from "../../service/ApiService";
 
-import PeerOrgTranList from "./PeerOrgTranList";
-
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 
@@ -46,60 +44,55 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateChannel = (props) => {
-  const [ordererOrgs, setOrdererOrgs] = useState([]);
-  const [orderingOrg, setOrderingOrg] = useState("");
-  const [channelName, setChannelName] = useState("");
-  const [peerOrgs, setPeerOrgs] = useState([]);
+const UploadChaincode = (props) => {
+  const [ccName, setCcName] = useState("");
+  const [ccLang, setCcLang] = useState("");
+  const [ccDesc, setCcDesc] = useState("");
+  
+  const [ccFile, setCcFile] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    ApiService.getOrgList("orderer").then((result) => {
-      let ordererOrgs = [];
-      let resultData = result.data.resultData;
-      for (let i = 0; i < resultData.length; i++) {
-        ordererOrgs.push(resultData[i].orgName);
-      }
 
-      setOrdererOrgs(ordererOrgs);
-    });
-  }, [setOrdererOrgs]);
 
-  const onChangeChannelName = (e) => {
-    setChannelName(e.target.value);
+  const onChangeCcLang = (e) => {
+    setCcLang(e.target.value);
   };
 
-  const onChangePeerOrgs = (value) => {
-    setPeerOrgs(value);
-  };
-
-  const createChannel = async (e) => {
-    e.preventDefault();
-
-    if (peerOrgs.length === 0) {
-      alert("가입할 조직 선택 ");
-    }
-    
-    let data={
-        channelName:channelName,
-        orderingOrg:orderingOrg,
-        peerOrgs:peerOrgs
-    }
+  const uploadeCc = (e) => {
     setIsLoading(true);
-    ApiService.createChannel(data).then(result =>{
-        setIsLoading(false);
 
+      const formData = new FormData();
+      formData.append('ccName', ccName)
+      formData.append('ccLang', ccLang)
+      formData.append('ccDesc', ccDesc)
+      formData.append('ccFile', ccFile)
+
+      ApiService.uploadCc(formData).then((result) => {
+        setIsLoading(false);
+  
         alert(result.data.resultMessage);
   
         if (result.data.resultFlag) {
-          props.history.push("/channel");
+          props.history.push("/chaincode");
         }
-    })
+      });
+      
   };
 
-  const orderingOrgChange = (event) => {
-    setOrderingOrg(event.target.value);
+  const onChangeCcName = (e) => {
+    setCcName(e.target.value);
   };
+
+  const onChangeCcDesc = (e) => {
+    setCcDesc(e.target.value);
+  };
+
+  const onChangeCcFile = (e) => {
+    setCcFile(e.target.files[0]);
+  };
+
+
 
   const classes = useStyles();
 
@@ -114,56 +107,76 @@ const CreateChannel = (props) => {
           <CssBaseline />
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
-              채널 생성 테스트
+              체인코드 업로드 테스트
             </Typography>
 
             <br />
-            <form className={classes.form} onSubmit={createChannel}>
+            <form className={classes.form} onSubmit={uploadeCc}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
                     required
                     fullWidth
-                    id="channelName"
-                    label="채널 명"
-                    name="channelName"
-                    onChange={onChangeChannelName}
+                    id="ccName"
+                    label="체인코드명"
+                    name="ccName"
+                    onChange={onChangeCcName}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl required className={classes.formControl}>
                     <InputLabel id="demo-simple-select-required-label">
-                      오더링 조직
+                      체인코드 언어
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-required-label"
                       id="demo-simple-select-required"
-                      value={orderingOrg}
+                      //   value={orderingOrg}
                       className={classes.selectEmpty}
-                      onChange={orderingOrgChange}
+                      onChange={onChangeCcLang}
                     >
-                      {ordererOrgs.map((org, index) => (
-                        <MenuItem value={org} key={index}>{org}</MenuItem>
-                      ))}
+                      <MenuItem value="java">JAVA</MenuItem>
+                      <MenuItem value="js">NODEJS</MenuItem>
+                      <MenuItem value="go">GOLANG</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  <PeerOrgTranList
-                    onChangePeerOrgs={onChangePeerOrgs}
-                  ></PeerOrgTranList>
+                  <TextField
+                    label="체인코드 설명"
+                    multiline
+                    fullWidth
+                    fullWidth
+                    rows={4}
+                    placeholder="체인코드 설명"
+                    variant="outlined"
+                    onChange={onChangeCcDesc}
+                    helperText={ccDesc.length + "/255"}
+                  />
                 </Grid>
-
+                <Grid item xs={12}>
+                  
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="ccName"
+                    name="ccName"
+                    type="file"
+                    onChange={onChangeCcFile}
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <Button
                     type="submit"
                     fullWidth
+                    required
                     variant="contained"
                     color="primary"
                     className={classes.submit}
                   >
-                    채널 생성
+                    체인코드 업로드
                   </Button>
                 </Grid>
               </Grid>
@@ -174,4 +187,4 @@ const CreateChannel = (props) => {
     </div>
   );
 };
-export default CreateChannel;
+export default UploadChaincode;

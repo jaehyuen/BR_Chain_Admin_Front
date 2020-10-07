@@ -31,16 +31,7 @@ class ContainerList extends Component {
       noOfPages: Math.ceil(result.data.length / 10),
     });
   }
-  // async componentDidUpdate() {
-  //   console.log("componentDidUpdatecomponentDidUpdatecomponentDidUpdatecomponentDidUpdate")
-  //   let result = await ApiService.getContainerList();
 
-  //   this.setState({
-  //     conList: result.data.resultData,
-  //     noOfPages: Math.ceil(result.data.length / 10),
-  //   });
-  // }
-  // componentDidUpdate
 
   handleChange = (event, value) => {
     this.setState({
@@ -58,7 +49,12 @@ class ContainerList extends Component {
         isLoading: false,
       });
 
-      this.props.history.push("/container");
+      ApiService.getContainerList().then(result2 =>{
+        this.setState({
+          conList: result2.data.resultData,
+          noOfPages: Math.ceil(result2.data.length / 10),
+        });
+      });
     });
   };
 
@@ -80,9 +76,6 @@ class ContainerList extends Component {
         });
       });
 
-  
-      // this.props.window.location.reload();
-      // this.props.history.push("/container");
     });
   };
 
@@ -96,6 +89,7 @@ class ContainerList extends Component {
       overflow: "hidden",
       textOverflow: "ellipsis",
       width: "100px",
+      whiteSpace:"nowrap"
     };
 
     return (
@@ -113,7 +107,7 @@ class ContainerList extends Component {
                     <TableCell>컨테이너 포트</TableCell>
                     <TableCell>컨테이너 생성시간</TableCell>
                     <TableCell>컨테이너 상태</TableCell>
-                    <TableCell></TableCell>
+                    {/* <TableCell></TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -126,7 +120,7 @@ class ContainerList extends Component {
                         <TableCell>{org.conPort}</TableCell>
                         <TableCell>{org.conCreated}</TableCell>
                         <TableCell>{org.conStatus}</TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           {" "}
                           <Button
                             value={org.conId}
@@ -136,7 +130,7 @@ class ContainerList extends Component {
                           >
                             삭제
                           </Button>
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     ))}
                 </TableBody>

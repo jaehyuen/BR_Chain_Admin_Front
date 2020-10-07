@@ -11,10 +11,25 @@ class ApiService {
     return await axios.post(BASE_URL+"/create/channel",data)
   }
 
+  async uploadCc(data){
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
+  }
+    return await axios.post(BASE_URL+"/upload/chaincode",data,config)
+  }
   async removeContainers(id) {
     return await axios.get(BASE_URL + "/remove", {
       params: {
         conId: id,
+      },
+    });
+  }
+  async removeOrgContainers(orgName){
+    return await axios.get(BASE_URL + "/remove", {
+      params: {
+        orgName: orgName,
       },
     });
   }
@@ -34,6 +49,17 @@ class ApiService {
   }
   getChannelList() {
     return axios.get(BASE_URL + "/channels");
+  }
+  getCcList() {
+    return axios.get(BASE_URL + "/chaincodes");
+  }
+
+  getMemberList(orgName) {
+    return axios.get(BASE_URL + "/members", {
+      params: {
+        orgName: orgName,
+      },
+    });
   }
 
   getPortCheck(port) {

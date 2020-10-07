@@ -8,8 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
-import ApiService from "../service/ApiService";
-import Member from "./Member";
+import ApiService from "../../service/ApiService";
+import AddMember from "./AddMember";
 
 const CreateOrg = (props) => {
   const [orgType, setOrgType] = useState("");
@@ -226,7 +226,7 @@ const CreateOrg = (props) => {
                 </Grid>
                 {members.map((data, index) => (
                   <Grid item xs={12} key={index}>
-                    <Member
+                    <AddMember
                       onChanged={onChangePort}
                       conType={orgType}
                       conNum={data.conNum}

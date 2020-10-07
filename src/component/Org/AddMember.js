@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import ApiService from "../service/ApiService";
+import ApiService from "../../service/ApiService";
 
 class Member extends Component {
   constructor(props) {
