@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 
 import OrgList from "./component/Org/OrgList";
 import CreateOrg from "./component/Org/CreateOrg";
-import MemberList from "./component/Org/MemberList";
+import MemberList from "./component/Member/MemberList";
 
 import ChannelList from "./component/Channel/ChannelList";
 import CreateChannel from "./component/Channel/CreateChannel";
@@ -36,7 +36,7 @@ function App(props) {
         <Route exact path="/upload/chaincode"render={(props) => <Dashboard {...props} component={UploadChaincode} />} />
         
         
-        <Route exact path="/"   component={Dashboard} />
+        <Route exact path="/"   render={(props) => <Dashboard {...props}  />}  />
         </Switch>
       </div>
     </Router>

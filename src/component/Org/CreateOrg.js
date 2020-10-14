@@ -9,7 +9,7 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import ApiService from "../../service/ApiService";
-import AddMember from "./AddMember";
+import AddMember from "../Member/AddMember";
 
 const CreateOrg = (props) => {
   const [orgType, setOrgType] = useState("");

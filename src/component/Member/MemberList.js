@@ -11,45 +11,43 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import Typography from "@material-ui/core/Typography";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
-import CreateOrg from "./CreateOrg";
 
-const useStyles = makeStyles((theme) => ({
-  typography: {
-    padding: theme.spacing(2),
-  },
-}));
+import Popover from "@material-ui/core/Popover";
+import MemberDetails from "./MemberDetails";
+
+
 
 const MemberList = (props) => {
-  const classes = useStyles();
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [memberList, setMemberList] = useState([]);
-  const [orgName, setOrgName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedMember, setSelectedMember] = useState({});
+  
+  // const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setOrgName(props.match.params.orgName);
+    
 
     ApiService.getMemberList(props.match.params.orgName).then((result) =>
       
       setMemberList(result.data.resultData)
     );
-  }, [memberList]);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    
+  }, [props]);
+
+
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
     <div>
       <Typography component="h1" variant="h5">
-        {orgName} 조직 상세정보
+        조직 상세정보
       </Typography>
       <br></br>
       <TableContainer component={Paper}>
@@ -77,7 +75,12 @@ const MemberList = (props) => {
                     aria-describedby={id}
                     variant="contained"
                     color="primary"
-                    onClick={handleClick}
+                    value="zz"
+                    // onClick={()=>{test("z")},handleClick}
+                    onClick={(event)=>{
+                      setSelectedMember(member);
+                      setAnchorEl(event.currentTarget);
+                    }}
                   >
                     세부정보
                   </Button>
@@ -94,8 +97,8 @@ const MemberList = (props) => {
                       vertical: "top",
                       horizontal: "center",
                     }}
-                  >
-                    <CreateOrg></CreateOrg>
+                    style={{ shadows: ["none"]}}
+                  > <MemberDetails member={selectedMember}></MemberDetails>                   
                   </Popover>
                 </TableCell>
               </TableRow>

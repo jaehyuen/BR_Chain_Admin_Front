@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -46,14 +46,12 @@ const useStyles = makeStyles((theme) => ({
 
 const UploadChaincode = (props) => {
   const [ccName, setCcName] = useState("");
-  const [ccLang, setCcLang] = useState("");
+  const [ccLang, setCcLang] = useState("java");
   const [ccDesc, setCcDesc] = useState("");
-  
+
   const [ccFile, setCcFile] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
-
-
 
   const onChangeCcLang = (e) => {
     setCcLang(e.target.value);
@@ -62,22 +60,21 @@ const UploadChaincode = (props) => {
   const uploadeCc = (e) => {
     setIsLoading(true);
 
-      const formData = new FormData();
-      formData.append('ccName', ccName)
-      formData.append('ccLang', ccLang)
-      formData.append('ccDesc', ccDesc)
-      formData.append('ccFile', ccFile)
+    const formData = new FormData();
+    formData.append("ccName", ccName);
+    formData.append("ccLang", ccLang);
+    formData.append("ccDesc", ccDesc);
+    formData.append("ccFile", ccFile);
 
-      ApiService.uploadCc(formData).then((result) => {
-        setIsLoading(false);
-  
-        alert(result.data.resultMessage);
-  
-        if (result.data.resultFlag) {
-          props.history.push("/chaincode");
-        }
-      });
-      
+    ApiService.uploadCc(formData).then((result) => {
+      setIsLoading(false);
+
+      alert(result.data.resultMessage);
+
+      if (result.data.resultFlag) {
+        props.history.push("/chaincode");
+      }
+    });
   };
 
   const onChangeCcName = (e) => {
@@ -91,8 +88,6 @@ const UploadChaincode = (props) => {
   const onChangeCcFile = (e) => {
     setCcFile(e.target.files[0]);
   };
-
-
 
   const classes = useStyles();
 
@@ -147,7 +142,6 @@ const UploadChaincode = (props) => {
                     label="체인코드 설명"
                     multiline
                     fullWidth
-                    fullWidth
                     rows={4}
                     placeholder="체인코드 설명"
                     variant="outlined"
@@ -156,7 +150,6 @@ const UploadChaincode = (props) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  
                   <TextField
                     variant="outlined"
                     required

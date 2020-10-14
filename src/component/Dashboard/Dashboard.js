@@ -169,8 +169,12 @@ export default function Dashboard(props) {
 
         <Container maxWidth="lg" className={classes.container}>
           {props.component && <props.component {...props}></props.component>}
+          {/* <props.component {...props}></props.component> */}
         </Container>
       </main>
     </div>
   );
 }
+
+
+// Warning: validateDOMNesting(...): <a> cannot appear as a child of <tr>.<Link>{org.orgType}</Link>

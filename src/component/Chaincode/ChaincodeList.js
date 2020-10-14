@@ -22,13 +22,13 @@ const LightTooltip = withStyles((theme) => ({
 
 const ChaincodeList = (props) => {
   const [ccList, setCcList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     ApiService.getCcList().then((result) => {
       setCcList(result.data.resultData);
     });
-  }, [ccList]);
+  }, []);
 
   const stringStyle = {
     display: "block",

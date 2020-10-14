@@ -11,6 +11,10 @@ class ApiService {
     return await axios.post(BASE_URL+"/create/channel",data)
   }
 
+  async installCc(data){
+    return await axios.post(BASE_URL+"/install/chaincode",data)
+  }
+
   async uploadCc(data){
     const config = {
       headers: {
@@ -34,9 +38,9 @@ class ApiService {
     });
   }
 
-  getOrgList(type) {
+  async getOrgList(type) {
  
-      return axios.get(BASE_URL + "/orgs", {
+      return await axios.get(BASE_URL + "/orgs", {
         params: {
           type: type,
         },
