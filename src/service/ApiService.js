@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/api/core";
+// const BASE_URL = "http://192.168.65.169:8080/api/core";
 
 class ApiService {
   async createOrg(data) {
@@ -8,11 +9,11 @@ class ApiService {
   }
 
   async createChannel(data){
-    return await axios.post(BASE_URL+"/create/channel",data)
+    return await axios.post(BASE_URL+"/channel/create",data)
   }
 
   async installCc(data){
-    return await axios.post(BASE_URL+"/install/chaincode",data)
+    return await axios.post(BASE_URL+"/chaincode/install",data)
   }
 
   async uploadCc(data){
@@ -21,7 +22,7 @@ class ApiService {
           'content-type': 'multipart/form-data'
       }
   }
-    return await axios.post(BASE_URL+"/upload/chaincode",data,config)
+    return await axios.post(BASE_URL+"/chaincode/upload",data,config)
   }
   async removeContainers(id) {
     return await axios.get(BASE_URL + "/remove", {
@@ -52,10 +53,34 @@ class ApiService {
     return axios.get(BASE_URL + "/containers");
   }
   getChannelList() {
-    return axios.get(BASE_URL + "/channels");
+    return axios.get(BASE_URL + "/channel/list");
   }
   getCcList() {
-    return axios.get(BASE_URL + "/chaincodes");
+    return axios.get(BASE_URL + "/chaincode/list");
+  }
+
+  getChannelListPeerByConName(conName) {
+    return axios.get(BASE_URL + "/channel/list",{
+      params:{
+        conName:conName,
+      },
+    });
+  }
+
+  getChannelListPeerByChannelName(channelName) {
+    return axios.get(BASE_URL + "/channel/list",{
+      params:{
+        channelName:channelName,
+      },
+    });
+  }
+
+  getCcListPeer(conName) {
+    return axios.get(BASE_URL + "/chaincode/list", {
+      params: {
+        conName: conName,
+      },
+    });
   }
 
   getMemberList(orgName) {

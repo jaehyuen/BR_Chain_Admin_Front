@@ -25,10 +25,10 @@ class ContainerList extends Component {
 
   async componentDidMount() {
     let result = await ApiService.getContainerList();
-
+    console.log(result.data.resultData)
     this.setState({
       conList: result.data.resultData,
-      noOfPages: Math.ceil(result.data.length / 10),
+      // noOfPages: Math.ceil(result.data.length / 10),
     });
   }
 

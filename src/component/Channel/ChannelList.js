@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState,useEffect } from "react";
 import ApiService from "../../service/ApiService";
 
 import Paper from "@material-ui/core/Paper";
@@ -10,25 +10,15 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 
-class ChannelList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      channelList: [],
-    };
-  }
+const ChannelList  =(props)=> {
+  const [channelList, setChannelList] = useState([]);
 
-  async componentDidMount() {
-    let result = await ApiService.getChannelList();
-    console.log(result)
-
-    this.setState({
-      channelList: result.data.resultData,
-    });
-  }
-
-  render() {
-    const channelList = this.state.channelList;
+  useEffect(() => {
+ApiService.getChannelList().then((result)=> setChannelList(result.data.resultData));
+    console.log("useEffect")
+  }, []);
+  
+    
 
     return (
       <div>
@@ -40,15 +30,28 @@ class ChannelList extends Component {
                 <TableCell>채널 트렌젝션 개수</TableCell>
                 <TableCell>채널 블록 개수</TableCell>
                 <TableCell>오더링 조직</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {channelList.map((org, index) => (
+              {channelList.map((channel, index) => (
                 <TableRow key={index}>
-                  <TableCell>{org.channelName}</TableCell>
-                  <TableCell>{org.channelTx}</TableCell>
-                  <TableCell>{org.channelBlock}</TableCell>
-                  <TableCell>{org.orderingOrg}</TableCell>
+                  <TableCell>{channel.channelName}</TableCell>
+                  <TableCell>{channel.channelTx}</TableCell>
+                  <TableCell>{channel.channelBlock}</TableCell>
+                  <TableCell>{channel.orderingOrg}</TableCell>
+                  <TableCell>
+                  <Button
+                    value={channel.channelName}
+                    variant="contained"
+                    // color="secondary"
+                    onClick={() =>
+                      props.history.push("/channel/"+channel.channelName)
+                    }
+                  >
+                    채널 상세 정보
+                  </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -60,7 +63,7 @@ class ChannelList extends Component {
         </Button>
       </div>
     );
-  }
+  
 }
 
 export default ChannelList;

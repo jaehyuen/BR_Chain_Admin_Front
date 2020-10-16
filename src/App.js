@@ -8,6 +8,7 @@ import MemberList from "./component/Member/MemberList";
 
 import ChannelList from "./component/Channel/ChannelList";
 import CreateChannel from "./component/Channel/CreateChannel";
+import ChannelDetails from "./component/Channel/ChannelDetails";
 
 import ChaincodeList from "./component/Chaincode/ChaincodeList";
 import UploadChaincode from "./component/Chaincode/UploadChaincode";
@@ -27,6 +28,7 @@ function App(props) {
         <Route exact path="/org" render={(props) => <Dashboard {...props} component={OrgList} />} />
         <Route exact path="/org/member/:orgName" render={(props) => <Dashboard {...props} component={MemberList} />} />
         <Route exact path="/channel" render={(props) => <Dashboard {...props} component={ChannelList} />} />
+        <Route exact path="/channel/:channelName" render={(props) => <Dashboard {...props} component={ChannelDetails} />} />
         <Route exact path="/chaincode" render={(props) => <Dashboard {...props}  component={ChaincodeList} />} />
         <Route exact path="/container" render={(props) => <Dashboard {...props} component={ContainerList} />} />
 

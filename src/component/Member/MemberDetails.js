@@ -38,6 +38,7 @@ function ConfirmationDialogRaw(props) {
   const { onClose, value: valueProp, open, ...other } = props;
   const [value, setValue] = useState(valueProp);
   const [ccList, setCcList] = useState([]);
+
   const radioGroupRef = React.useRef(null);
 
   useEffect(() => {
@@ -141,7 +142,21 @@ const MemberDetails = (props) => {
   const [open, setOpen] = useState(false);
   const [ccName, setCcName] = useState("");
   const [ccVer, setCcVer] = useState("");
+  const [ccListPeer, setCcListPeer] = useState([]);
+  const [channelListPeer, setChannelListPeer] = useState([]);
+
   // const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    ApiService.getCcListPeer(props.member.conName).then((result) => {
+      setCcListPeer(result.data.resultData);
+    });
+  }, []);
+
+  useEffect(() => {
+    ApiService.getChannelListPeerByConName(props.member.conName).then((result) => {
+      setChannelListPeer(result.data.resultData);
+    });
+  }, []);
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -169,12 +184,13 @@ const MemberDetails = (props) => {
       conNum: props.member.conNum,
       ccName: ccName,
       ccVersion: ccVer,
+      ccLang: ccVer,
     };
 
     // setIsLoading(true);
     ApiService.installCc(data).then((result) => {
       // setIsLoading(false);
-
+      console.log(result.data);
       alert(result.data.resultMessage);
 
       if (!result.data.resultFlag) {
@@ -198,16 +214,16 @@ const MemberDetails = (props) => {
               <TableHead>
                 <TableRow>
                   <TableCell>채널 이름</TableCell>
-                  <TableCell>맴버 타입</TableCell>
-                  <TableCell>맴버 타입</TableCell>
+                  <TableCell>앵커피어 여부</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>ㅋㅋ</TableCell>
-                  <TableCell>1</TableCell>
-                  <TableCell>2</TableCell>
-                </TableRow>
+                {channelListPeer.map((channelPeer, index) => (
+                  <TableRow key={index} hover={true}>
+                    <TableCell>{channelPeer.channelName}</TableCell>
+                    <TableCell>{channelPeer.anchorYn.toString()}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -229,14 +245,18 @@ const MemberDetails = (props) => {
               <TableHead>
                 <TableRow>
                   <TableCell>체인코드 이름</TableCell>
-                  <TableCell>버전</TableCell>
+                  <TableCell>체인코드 버전</TableCell>
+                  <TableCell>체인코드 언어</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>ㅋㅋ</TableCell>
-                  <TableCell>1</TableCell>
-                </TableRow>
+              {ccListPeer.map((ccPeer, index) => (
+                  <TableRow key={index} hover={true}>
+                    <TableCell>{ccPeer.ccName}</TableCell>
+                    <TableCell>{ccPeer.ccVersion}</TableCell>
+                    <TableCell>{ccPeer.ccLang}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

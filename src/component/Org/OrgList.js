@@ -57,7 +57,7 @@ const OrgList = (props) => {
                       props.history.push("/org/member/" + org.orgName)
                     }
                   >
-                    상세정보
+                    조직 상세 정보
                   </Button>
                 </TableCell>
                 <TableCell>
