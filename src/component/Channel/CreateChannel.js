@@ -51,7 +51,6 @@ const CreateChannel = (props) => {
   const [orderingOrg, setOrderingOrg] = useState("");
   const [channelName, setChannelName] = useState("");
   const [peerOrgs, setPeerOrgs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     ApiService.getOrgList("orderer").then((result) => {
@@ -79,22 +78,22 @@ const CreateChannel = (props) => {
     if (peerOrgs.length === 0) {
       alert("가입할 조직 선택 ");
     }
-    
-    let data={
-        channelName:channelName,
-        orderingOrg:orderingOrg,
-        peerOrgs:peerOrgs
-    }
-    setIsLoading(true);
-    ApiService.createChannel(data).then(result =>{
-        setIsLoading(false);
 
-        alert(result.data.resultMessage);
-  
-        if (result.data.resultFlag) {
-          props.history.push("/channel");
-        }
-    })
+    let data = {
+      channelName: channelName,
+      orderingOrg: orderingOrg,
+      peerOrgs: peerOrgs,
+    };
+    props.loading(true);
+    ApiService.createChannel(data).then((result) => {
+      props.loading(false);
+
+      alert(result.data.resultMessage);
+
+      if (result.data.resultFlag) {
+        props.history.push("/channel");
+      }
+    });
   };
 
   const orderingOrgChange = (event) => {
@@ -104,74 +103,68 @@ const CreateChannel = (props) => {
   const classes = useStyles();
 
   return (
-    <div>
-      {isLoading ? (
-        <Backdrop className={classes.backdrop} open={true}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
-        <Container component="main">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Typography component="h1" variant="h5">
-              채널 생성 테스트
-            </Typography>
+    <Container component="main">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Typography component="h1" variant="h5">
+          채널 생성 테스트
+        </Typography>
 
-            <br />
-            <form className={classes.form} onSubmit={createChannel}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="channelName"
-                    label="채널 명"
-                    name="channelName"
-                    onChange={onChangeChannelName}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl required className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-required-label">
-                      오더링 조직
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-required-label"
-                      id="demo-simple-select-required"
-                      value={orderingOrg}
-                      className={classes.selectEmpty}
-                      onChange={orderingOrgChange}
-                    >
-                      {ordererOrgs.map((org, index) => (
-                        <MenuItem value={org} key={index}>{org}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <PeerOrgTranList
-                    onChangePeerOrgs={onChangePeerOrgs}
-                  ></PeerOrgTranList>
-                </Grid>
+        <br />
+        <form className={classes.form} onSubmit={createChannel}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="channelName"
+                label="채널 명"
+                name="channelName"
+                onChange={onChangeChannelName}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl required className={classes.formControl}>
+                <InputLabel id="demo-simple-select-required-label">
+                  오더링 조직
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-required-label"
+                  id="demo-simple-select-required"
+                  value={orderingOrg}
+                  className={classes.selectEmpty}
+                  onChange={orderingOrgChange}
+                >
+                  {ordererOrgs.map((org, index) => (
+                    <MenuItem value={org} key={index}>
+                      {org}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <PeerOrgTranList
+                onChangePeerOrgs={onChangePeerOrgs}
+              ></PeerOrgTranList>
+            </Grid>
 
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                  >
-                    채널 생성
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-        </Container>
-      )}
-    </div>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                채널 생성
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 };
 export default CreateChannel;

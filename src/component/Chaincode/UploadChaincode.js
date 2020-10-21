@@ -57,8 +57,8 @@ const UploadChaincode = (props) => {
     setCcLang(e.target.value);
   };
 
-  const uploadeCc = (e) => {
-    setIsLoading(true);
+  const uploadChaincode = (e) => {
+    props.loading(true);
 
     const formData = new FormData();
     formData.append("ccName", ccName);
@@ -67,7 +67,7 @@ const UploadChaincode = (props) => {
     formData.append("ccFile", ccFile);
 
     ApiService.uploadCc(formData).then((result) => {
-      setIsLoading(false);
+      props.loading(false);
 
       alert(result.data.resultMessage);
 
@@ -106,7 +106,7 @@ const UploadChaincode = (props) => {
             </Typography>
 
             <br />
-            <form className={classes.form} onSubmit={uploadeCc}>
+            <form className={classes.form} onSubmit={uploadChaincode}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField

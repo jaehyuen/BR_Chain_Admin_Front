@@ -32,7 +32,6 @@ import Dialog from "@material-ui/core/Dialog";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import ApiService from "../../service/ApiService";
 
 function ConfirmationDialogRaw(props) {
   const { onClose, value: valueProp, open, ...other } = props;
@@ -125,7 +124,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxHeight: "400px",
     minHeight: "400px",
-    // shadows: ["none"],
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -141,22 +139,22 @@ const MemberDetails = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [ccName, setCcName] = useState("");
-  const [ccVer, setCcVer] = useState("");
+  const [ccVersion, setCcVersion] = useState("");
   const [ccListPeer, setCcListPeer] = useState([]);
   const [channelListPeer, setChannelListPeer] = useState([]);
+  const conName=props.member.conName;
 
-  // const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    ApiService.getCcListPeer(props.member.conName).then((result) => {
+    ApiService.getCcListPeer(conName).then((result) => {
       setCcListPeer(result.data.resultData);
     });
-  }, []);
+  }, [conName]);
 
   useEffect(() => {
-    ApiService.getChannelListPeerByConName(props.member.conName).then((result) => {
+    ApiService.getChannelListPeerByConName(conName).then((result) => {
       setChannelListPeer(result.data.resultData);
     });
-  }, []);
+  }, [conName]);
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -169,11 +167,11 @@ const MemberDetails = (props) => {
       setCcName(newValue);
     }
   };
-  const onChangeCcVer = (e) => {
-    setCcVer(e.target.value);
+  const onChangeCcVersion = (e) => {
+    setCcVersion(e.target.value);
   };
 
-  const installCc = (e) => {
+  const installChaincode = (e) => {
     e.preventDefault();
     if (ccName.length === 0) {
       e.preventDefault();
@@ -183,13 +181,14 @@ const MemberDetails = (props) => {
       orgName: props.member.orgName,
       conNum: props.member.conNum,
       ccName: ccName,
-      ccVersion: ccVer,
-      ccLang: ccVer,
+      ccVersion: ccVersion,
+      ccLang: ccVersion,
     };
 
-    // setIsLoading(true);
+    props.loading(true);
+    
     ApiService.installCc(data).then((result) => {
-      // setIsLoading(false);
+      props.loading(false);
       console.log(result.data);
       alert(result.data.resultMessage);
 
@@ -270,7 +269,7 @@ const MemberDetails = (props) => {
         >
           <Typography className={classes.heading}>체인코드 설치</Typography>
         </AccordionSummary>
-        <form className={classes.form} onSubmit={installCc}>
+        <form className={classes.form} onSubmit={installChaincode}>
           <AccordionDetails>
             <List component="div" role="list">
               <ListItem
@@ -289,10 +288,10 @@ const MemberDetails = (props) => {
                   variant="outlined"
                   required
                   fullWidth
-                  id="ccVer"
-                  label="체인코드 버전 명"
-                  name="ccVer"
-                  onChange={onChangeCcVer}
+                  id="ccVersion"
+                  label="체인코드 버전"
+                  name="ccVersion"
+                  onChange={onChangeCcVersion}
                 />
               </ListItem>
               <ListItem role="listitem">

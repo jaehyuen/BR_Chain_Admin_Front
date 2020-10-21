@@ -17,7 +17,7 @@ const CreateOrg = (props) => {
   const [members, setMembers] = useState([]);
   const [orgName, setOrgName] = useState("");
   const [caPort, setCaPort] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  
   const [portErr, setPortErr] = useState(false);
 
   const onChangePort = (member) => {
@@ -92,10 +92,10 @@ const CreateOrg = (props) => {
     };
 
     data.unshift(caJson);
-    setIsLoading(true);
+    props.loading(true);
 
     await ApiService.createOrg(data).then((result) => {
-      setIsLoading(false);
+      props.loading(false);
 
       alert(result.data.resultMessage);
 
@@ -136,12 +136,7 @@ const CreateOrg = (props) => {
   }));
 
   return (
-    <div>
-      {isLoading ? (
-        <Backdrop className={classes.backdrop} open={true}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : (
+    
         <Container component="main">
           <CssBaseline />
           <div className={classes.paper}>
@@ -262,8 +257,6 @@ const CreateOrg = (props) => {
             </form>
           </div>
         </Container>
-      )}
-    </div>
   );
 };
 export default CreateOrg;

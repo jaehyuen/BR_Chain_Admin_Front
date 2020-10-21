@@ -8,21 +8,27 @@ class ApiService {
     return await axios.post(BASE_URL + "/create/org", data);
   }
 
-  async createChannel(data){
-    return await axios.post(BASE_URL+"/channel/create",data)
+  async createChannel(data) {
+    return await axios.post(BASE_URL + "/channel/create", data);
   }
 
-  async installCc(data){
-    return await axios.post(BASE_URL+"/chaincode/install",data)
+  async installCc(data) {
+    return await axios.post(BASE_URL + "/chaincode/install", data);
   }
 
-  async uploadCc(data){
+  async activeCc(data) {
+    return await axios.post(BASE_URL + "/chaincode/active", data);
+  }
+
+
+
+  async uploadCc(data) {
     const config = {
       headers: {
-          'content-type': 'multipart/form-data'
-      }
-  }
-    return await axios.post(BASE_URL+"/chaincode/upload",data,config)
+        "content-type": "multipart/form-data",
+      },
+    };
+    return await axios.post(BASE_URL + "/chaincode/upload", data, config);
   }
   async removeContainers(id) {
     return await axios.get(BASE_URL + "/remove", {
@@ -31,7 +37,7 @@ class ApiService {
       },
     });
   }
-  async removeOrgContainers(orgName){
+  async removeOrgContainers(orgName) {
     return await axios.get(BASE_URL + "/remove", {
       params: {
         orgName: orgName,
@@ -40,13 +46,11 @@ class ApiService {
   }
 
   async getOrgList(type) {
- 
-      return await axios.get(BASE_URL + "/orgs", {
-        params: {
-          type: type,
-        },
-      });
-   
+    return await axios.get(BASE_URL + "/orgs", {
+      params: {
+        type: type,
+      },
+    });
   }
 
   getContainerList() {
@@ -60,17 +64,33 @@ class ApiService {
   }
 
   getChannelListPeerByConName(conName) {
-    return axios.get(BASE_URL + "/channel/list",{
-      params:{
-        conName:conName,
+    return axios.get(BASE_URL + "/channel/list", {
+      params: {
+        conName: conName,
       },
     });
   }
 
   getChannelListPeerByChannelName(channelName) {
-    return axios.get(BASE_URL + "/channel/list",{
-      params:{
-        channelName:channelName,
+    return axios.get(BASE_URL + "/channel/list", {
+      params: {
+        channelName: channelName,
+      },
+    });
+  }
+
+  getCcListChannel(channelName) {
+    return axios.get(BASE_URL + "/chaincode/channel/list", {
+      params: {
+        channelName: channelName,
+      },
+    });
+  }
+
+  getCcListActiveInChannel(channelName) {
+    return axios.get(BASE_URL + "/chaincode/active", {
+      params: {
+        channelName: channelName,
       },
     });
   }
@@ -99,7 +119,14 @@ class ApiService {
     });
   }
 
-  
+  registerEventListener(channelName) {
+    return axios.get(BASE_URL + "/channel/register", {
+      params: {
+        channelName: channelName,
+      },
+    });
+  }
 }
+
 
 export default new ApiService();
