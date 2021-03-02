@@ -1,37 +1,18 @@
 {
-  "name": "brchain_web",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/react-router-dom": "^5.1.5",
-    "axios": "^0.20.0",
-    "material-ui-flat-pagination": "^4.1.1",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.3.0",
-    "react-dom": "^16.13.1",
-    "react-fontawesome": "^1.7.1",
-    "react-js-pagination": "^3.0.3",
-    "react-loader-spinner": "^3.1.14",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "reactstrap": "^8.6.0",
-    "recharts": "^1.8.5",
-    "semantic-ui-react": "^1.3.0",
-    "socket.io-client": "^2.3.1",
-    "sockjs-client": "^1.5.0",
-    "stompjs": "^2.3.3"
-  },
+  "homepage": "https://jaehyuen.github.io/react-test",
+  "name": "react-material-dashboard",
+  "author": "DeviasIO",
+  "licence": "MIT",
+  "version": "1.0.0",
+  "private": false,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build"
+    
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,5 +28,46 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/styles": "^4.10.0",
+    "axios": "^0.20.0",
+    "chart.js": "^2.9.3",
+    "clsx": "^1.1.1",
+    "formik": "^2.1.5",
+    "gh-pages": "^3.1.0",
+    "history": "^5.0.0",
+    "lodash": "^4.17.19",
+    "moment": "^2.27.0",
+    "notistack": "^1.0.1",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-chartjs-2": "^2.10.0",
+    "react-dom": "^16.13.1",
+    "react-feather": "^2.0.8",
+    "react-helmet": "^6.1.0",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-router": "^6.0.0-beta.0",
+    "react-router-dom": "^6.0.0-beta.0",
+    "react-scripts": "^3.4.1",
+    "stompjs": "^2.3.3",
+    "use-react-router": "^1.0.7",
+    "uuid": "^8.3.0",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "prettier": "^1.19.1"
   }
 }

@@ -45,6 +45,15 @@ class ApiService {
     });
   }
 
+  async updateAnchor(channelName,conName) {
+    return await axios.get(BASE_URL + "/channel/anchor", {
+      params: {
+        channelName: channelName,
+        conName: conName,
+      },
+    });
+  }
+
   async getOrgList(type) {
     return await axios.get(BASE_URL + "/orgs", {
       params: {
@@ -63,8 +72,16 @@ class ApiService {
     return axios.get(BASE_URL + "/chaincode/list");
   }
 
-  getChannelListPeerByConName(conName) {
+  getChannelListByChannelName(channelName) {
     return axios.get(BASE_URL + "/channel/list", {
+      params: {
+        channelName: channelName,
+      },
+    });
+  }
+
+  getChannelListPeerByConName(conName) {
+    return axios.get(BASE_URL + "/channel/list/peer", {
       params: {
         conName: conName,
       },
@@ -72,7 +89,7 @@ class ApiService {
   }
 
   getChannelListPeerByChannelName(channelName) {
-    return axios.get(BASE_URL + "/channel/list", {
+    return axios.get(BASE_URL + "/channel/list/peer", {
       params: {
         channelName: channelName,
       },
