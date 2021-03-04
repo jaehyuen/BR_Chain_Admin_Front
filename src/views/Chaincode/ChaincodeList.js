@@ -71,6 +71,7 @@ const ChaincodeList = (props) => {
             <TableRow>
               <TableCell>체인코드 이름</TableCell>
               <TableCell>체인코드 언어</TableCell>
+              <TableCell>체인코드 버전</TableCell>
               <TableCell>체인코드 설명</TableCell>
               <TableCell>체인코드 경로</TableCell>
               <TableCell></TableCell>
@@ -81,6 +82,7 @@ const ChaincodeList = (props) => {
               <TableRow key={index}>
                 <TableCell>{cc.ccName}</TableCell>
                 <TableCell>{cc.ccLang}</TableCell>
+                <TableCell>{cc.ccVersion}</TableCell>
                 <TableCell>
                   <LightTooltip title={cc.ccDesc}>
                     <div style={stringStyle}>{cc.ccDesc}</div>

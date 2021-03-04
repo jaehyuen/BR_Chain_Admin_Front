@@ -52,11 +52,12 @@ function ConfirmationDialogRaw(props) {
     ApiService.getCcList().then((result) => {
       let ccList = [];
       let resultData = result.data.resultData;
-      for (let i = 0; i < resultData.length; i++) {
-        ccList.push(resultData[i].ccName);
-      }
+      // for (let i = 0; i < resultData.length; i++) {
+      //   ccList.push(resultData[i].ccName);
+      // }
 
-      setCcList(ccList);
+      // setCcList(ccList);
+      setCcList(resultData)
     });
   }, []);
 
@@ -101,10 +102,10 @@ function ConfirmationDialogRaw(props) {
         >
           {ccList.map((option) => (
             <FormControlLabel
-              value={option}
-              key={option}
+              value={option.ccName + " : "+option.ccVersion}
+              key={option.ccName}
               control={<Radio />}
-              label={option}
+              label={option.ccName + " : "+option.ccVersion}
             />
           ))}
         </RadioGroup>
@@ -290,7 +291,7 @@ const MemberDetails = (props) => {
               >
                 <ListItemText primary="설치할 체인코드" secondary={ccName} />
               </ListItem>
-              <ListItem role="listitem">
+              {/* <ListItem role="listitem">
                 <TextField
                   variant="outlined"
                   required
@@ -300,7 +301,7 @@ const MemberDetails = (props) => {
                   name="ccVersion"
                   onChange={onChangeCcVersion}
                 />
-              </ListItem>
+              </ListItem> */}
               <ListItem role="listitem">
                 <Button
                   type="submit"
