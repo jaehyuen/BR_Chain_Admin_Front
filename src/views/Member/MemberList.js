@@ -87,7 +87,7 @@ const MemberList = props => {
                       {memberList.map((member, index) => (
                         <TableRow key={index}>
                           <TableCell>{member.orgName}</TableCell>
-                          <TableCell>{member.orgType}</TableCell>
+                          <TableCell>{member.conType}</TableCell>
                           <TableCell>{member.conNum}</TableCell>
                           <TableCell>{member.conName}</TableCell>
                           <TableCell>{member.conPort}</TableCell>
