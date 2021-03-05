@@ -76,7 +76,8 @@ function ConfirmationDialogRaw(props) {
   };
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    
+    setValue(ccList[event.target.value]);
   };
 
   return (
@@ -97,13 +98,13 @@ function ConfirmationDialogRaw(props) {
           ref={radioGroupRef}
           aria-label="ringtone"
           name="ringtone"
-          value={value}
+          value={value.ccName + " : "+value.ccVersion}
           onChange={handleChange}
         >
-          {ccList.map((option) => (
+          {ccList.map((option,index) => (
             <FormControlLabel
-              value={option.ccName + " : "+option.ccVersion}
-              key={option.ccName}
+              value={index}
+              key={index}
               control={<Radio />}
               label={option.ccName + " : "+option.ccVersion}
             />
@@ -141,8 +142,12 @@ const useStyles = makeStyles((theme) => ({
 const MemberDetails = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
+  const [ccInfo, setCcInfo] = useState({});
+
   const [ccName, setCcName] = useState("");
   const [ccVersion, setCcVersion] = useState("");
+
   const [ccListPeer, setCcListPeer] = useState([]);
   const [channelListPeer, setChannelListPeer] = useState([]);
   
@@ -169,7 +174,9 @@ const MemberDetails = (props) => {
     setOpen(false);
 
     if (newValue) {
-      setCcName(newValue);
+      setCcName(newValue.ccName);
+      setCcVersion(newValue.ccVersion);
+      setCcInfo(newValue)
     }
   };
   const onChangeCcVersion = (e) => {
@@ -185,12 +192,13 @@ const MemberDetails = (props) => {
     let data = {
       orgName: props.member.orgName,
       conNum: props.member.conNum,
-      ccName: ccName,
-      ccVersion: ccVersion,
-      ccLang: ccVersion,
+      ccName: ccInfo.ccName,
+      ccVersion: ccInfo.ccVersion,
+      id:ccInfo.id
     };
 
-    // props.loading(true);
+    console.log(data);
+    props.loading(true);
     
     ApiService.installCc(data).then((result) => {
       // props.loading(false);
@@ -289,7 +297,7 @@ const MemberDetails = (props) => {
                 onClick={handleClickListItem}
                 role="listitem"
               >
-                <ListItemText primary="설치할 체인코드" secondary={ccName} />
+                <ListItemText primary="설치할 체인코드" secondary={ccName+" : "+ccVersion} />
               </ListItem>
               {/* <ListItem role="listitem">
                 <TextField
