@@ -13,6 +13,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Page from "src/components/Page";
+import ApiService from "../../service/ApiService";
+import { useCookies } from 'react-cookie';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   return (
     <Page className={classes.root} title="Login">
@@ -44,22 +47,28 @@ const LoginView = () => {
               userId: "",
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string()
-                .email("Must be a valid email")
-                .max(255)
-                .required("Email is required"),
               password: Yup.string()
                 .max(255)
                 .required("Password is required"),
-              userName: Yup.string()
-                .max(255)
-                .required("Name is required"),
               userId: Yup.string()
                 .max(255)
                 .required("ID is required"),
             })}
-            onSubmit={() => {
-              navigate("/app/dashboard", { replace: true });
+            onSubmit={(data, { setSubmitting }) => {
+              setSubmitting(true);
+
+              ApiService.loginUser(data).then((result) => {
+                setSubmitting(false);
+                console.log(result.data)
+                alert(result.data.resultMessage);
+                if (result.data.resultFlag) {
+                  setCookie("token",result.data.resultData.token)
+                  navigate("/app/dashboard", { replace: true });
+                }
+              }).catch((error)=>{
+                setSubmitting(false);
+                alert("아이디 또는 패스워드를 확인해주세요.")
+              });
             }}
           >
             {({
@@ -74,7 +83,7 @@ const LoginView = () => {
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
                   <Typography color="textPrimary" variant="h2">
-                    Sign in
+                    로그인
                   </Typography>
                   <Typography
                     color="textSecondary"
@@ -99,33 +108,6 @@ const LoginView = () => {
                   value={values.userId}
                   variant="outlined"
                 />
-
-                <TextField
-                  error={Boolean(touched.userName && errors.userName)}
-                  fullWidth
-                  helperText={touched.userName && errors.userName}
-                  label="Name"
-                  margin="normal"
-                  name="userName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="text"
-                  value={values.userName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.email && errors.email)}
-                  fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
-                  margin="normal"
-                  name="email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="email"
-                  value={values.email}
-                  variant="outlined"
-                />
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -148,13 +130,13 @@ const LoginView = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    로그인
                   </Button>
                 </Box>
                 <Typography color="textSecondary" variant="body1">
-                  Don&apos;t have an account?{" "}
+                  계정이 없으신가요?{" "}
                   <Link component={RouterLink} to="/register" variant="h6">
-                    Sign up
+                    회원가입
                   </Link>
                 </Typography>
               </form>

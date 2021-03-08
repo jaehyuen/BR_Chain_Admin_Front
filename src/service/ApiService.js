@@ -1,12 +1,55 @@
+import React from "react";
 import axios from "axios";
-
+import { useCookies } from "react-cookie";
 const BASE_URL = "http://localhost:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api/core";
 
-class ApiService {
+// axios.interceptors.request.use(function (config) {
+//   const token = cookies.token
+//   config.headers.Authorization =  token;
 
-  async registerUser(data) {
+//   return config;
+// });
+
+axios.interceptors.request.use(
+  function (config) {
+    // 요청을 보내기 전에 수행할 일
+    // ...
+    console.log(getCookieValue("token"))
+    config.headers.Authorization=getCookieValue("token")
+    return config;
+  },
+  function (error) {
+    // 오류 요청을 보내기전 수행할 일
+    // ...
+    return Promise.reject(error);
+  });
+
+  const getCookieValue = (key) => {
+    let cookieKey = key + "="; 
+    let result = "";
+    const cookieArr = document.cookie.split(";");
+    
+    for(let i = 0; i < cookieArr.length; i++) {
+      if(cookieArr[i][0] === " ") {
+        cookieArr[i] = cookieArr[i].substring(1);
+      }
+      
+      if(cookieArr[i].indexOf(cookieKey) === 0) {
+        result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+        return result;
+      }
+    }
+    return result;
+  }
+
+export class ApiService {
+  
+    async registerUser(data) {
     return axios.post(BASE_URL + "/auth/register", data);
+  }
+  async loginUser(data) {
+    return axios.post(BASE_URL + "/auth/login", data);
   }
 
   async createOrg(data) {
@@ -24,8 +67,6 @@ class ApiService {
   async activeCc(data) {
     return await axios.post(BASE_URL + "/chaincode/active", data);
   }
-
-
 
   async uploadCc(data) {
     const config = {
@@ -50,7 +91,7 @@ class ApiService {
     });
   }
 
-  async updateAnchor(channelName,conName) {
+  async updateAnchor(channelName, conName) {
     return await axios.get(BASE_URL + "/core/channel/anchor", {
       params: {
         channelName: channelName,
@@ -149,6 +190,5 @@ class ApiService {
     });
   }
 }
-
 
 export default new ApiService();

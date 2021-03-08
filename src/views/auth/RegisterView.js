@@ -62,16 +62,13 @@ const RegisterView = () => {
             })}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
-              console.log(data);
+
               ApiService.registerUser(data).then((result) => {
-                console.log(result);
                 setSubmitting(false);
-                alert(result.data.resultMessage)
+                alert(result.data.resultMessage);
                 if (result.data.resultFlag) {
-                  
                   navigate("/login", { replace: true });
                 }
-
               });
             }}
           >
