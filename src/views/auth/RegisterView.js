@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { Formik } from 'formik';
+import React from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { Formik } from "formik";
 import {
   Box,
   Button,
@@ -11,17 +11,18 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
-} from '@material-ui/core';
-import Page from 'src/components/Page';
+  makeStyles,
+} from "@material-ui/core";
+import Page from "src/components/Page";
+import ApiService from "../../service/ApiService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    height: '100%',
+    height: "100%",
     paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
+    paddingTop: theme.spacing(3),
+  },
 }));
 
 const RegisterView = () => {
@@ -29,10 +30,7 @@ const RegisterView = () => {
   const navigate = useNavigate();
 
   return (
-    <Page
-      className={classes.root}
-      title="Register"
-    >
+    <Page className={classes.root} title="Register">
       <Box
         display="flex"
         flexDirection="column"
@@ -42,23 +40,39 @@ const RegisterView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: '',
-              firstName: '',
-              lastName: '',
-              password: '',
-              policy: false
+              email: "",
+              password: "",
+              userId: "",
+              userName: "",
             }}
-            validationSchema={
-              Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
-              })
-            }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            validationSchema={Yup.object().shape({
+              email: Yup.string()
+                .email("Must be a valid email")
+                .max(255)
+                .required("Email is required"),
+              userName: Yup.string()
+                .max(255)
+                .required("Name is required"),
+              userId: Yup.string()
+                .max(255)
+                .required("ID is required"),
+              password: Yup.string()
+                .max(255)
+                .required("password is required"),
+            })}
+            onSubmit={(data, { setSubmitting }) => {
+              setSubmitting(true);
+              console.log(data);
+              ApiService.registerUser(data).then((result) => {
+                console.log(result);
+                setSubmitting(false);
+                alert(result.data.resultMessage)
+                if (result.data.resultFlag) {
+                  
+                  navigate("/login", { replace: true });
+                }
+
+              });
             }}
           >
             {({
@@ -68,15 +82,12 @@ const RegisterView = () => {
               handleSubmit,
               isSubmitting,
               touched,
-              values
+              values,
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
-                    Create new account
+                  <Typography color="textPrimary" variant="h2">
+                    회원 가입
                   </Typography>
                   <Typography
                     color="textSecondary"
@@ -87,27 +98,35 @@ const RegisterView = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.userId && errors.userId)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.userId && errors.userId}
+                  label="ID"
                   margin="normal"
-                  name="firstName"
-                  onBlur={handleBlur}
+                  name="userId"
+                  onBlur={(e) => {
+                    // call the built-in handleBur
+                    handleBlur(e);
+                    // and do something about e
+                    console.log(e.currentTarget.value);
+                  }}
                   onChange={handleChange}
-                  value={values.firstName}
+                  type="text"
+                  value={values.userId}
                   variant="outlined"
                 />
+
                 <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
+                  error={Boolean(touched.userName && errors.userName)}
                   fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
+                  helperText={touched.userName && errors.userName}
+                  label="Name"
                   margin="normal"
-                  name="lastName"
+                  name="userName"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.lastName}
+                  type="text"
+                  value={values.userName}
                   variant="outlined"
                 />
                 <TextField
@@ -136,38 +155,7 @@ const RegisterView = () => {
                   value={values.password}
                   variant="outlined"
                 />
-                <Box
-                  alignItems="center"
-                  display="flex"
-                  ml={-1}
-                >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    I have read the
-                    {' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
-                </Box>
-                {Boolean(touched.policy && errors.policy) && (
-                  <FormHelperText error>
-                    {errors.policy}
-                  </FormHelperText>
-                )}
+
                 <Box my={2}>
                   <Button
                     color="primary"
@@ -177,20 +165,12 @@ const RegisterView = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign up now
+                    회원가입
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
+                <Typography color="textSecondary" variant="body1">
+                  Have an account?{" "}
+                  <Link component={RouterLink} to="/login" variant="h6">
                     Sign in
                   </Link>
                 </Typography>
