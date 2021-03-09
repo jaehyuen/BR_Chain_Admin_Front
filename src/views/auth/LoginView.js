@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import Page from "src/components/Page";
 import ApiService from "../../service/ApiService";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
 
   return (
     <Page className={classes.root} title="Login">
@@ -57,18 +57,38 @@ const LoginView = () => {
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
 
-              ApiService.loginUser(data).then((result) => {
-                setSubmitting(false);
-                console.log(result.data)
-                alert(result.data.resultMessage);
-                if (result.data.resultFlag) {
-                  setCookie("token",result.data.resultData.token)
-                  navigate("/app/dashboard", { replace: true });
-                }
-              }).catch((error)=>{
-                setSubmitting(false);
-                alert("아이디 또는 패스워드를 확인해주세요.")
-              });
+              ApiService.loginUser(data)
+                .then((result) => {
+                  setSubmitting(false);
+                  console.log(result.data);
+                  alert(result.data.resultMessage);
+                  if (result.data.resultFlag) {
+                    removeCookie("accessToken");
+                    removeCookie("refreshToken");
+                    removeCookie("userId");
+
+                    setCookie(
+                      "accessToken",
+                      result.data.resultData.accessToken,
+                      { path: "/" }
+                    );
+                    setCookie(
+                      "refreshToken",
+                      result.data.resultData.refreshToken,
+                      { path: "/" }
+                    );
+                    setCookie("userId", result.data.resultData.userId, {
+                      path: "/",
+                    });
+                    navigate("/app/dashboard", { replace: true });
+                  }
+                })
+                .catch((error) => {
+                  setSubmitting(false);
+                  if (error.response.status == 403) {
+                    alert("아이디 또는 패스워드를 확인해주세요.");
+                  }
+                });
             }}
           >
             {({

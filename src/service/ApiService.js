@@ -12,40 +12,73 @@ const BASE_URL = "http://localhost:8080/api";
 // });
 
 axios.interceptors.request.use(
-  function (config) {
-    // 요청을 보내기 전에 수행할 일
-    // ...
-    console.log(getCookieValue("token"))
-    config.headers.Authorization=getCookieValue("token")
+  function(config) {
+
+    config.headers.Authorization = "Bearer " + getCookieValue("accessToken");
     return config;
   },
-  function (error) {
-    // 오류 요청을 보내기전 수행할 일
-    // ...
-    return Promise.reject(error);
-  });
+  function(error) {
 
-  const getCookieValue = (key) => {
-    let cookieKey = key + "="; 
-    let result = "";
-    const cookieArr = document.cookie.split(";");
-    
-    for(let i = 0; i < cookieArr.length; i++) {
-      if(cookieArr[i][0] === " ") {
-        cookieArr[i] = cookieArr[i].substring(1);
-      }
-      
-      if(cookieArr[i].indexOf(cookieKey) === 0) {
-        result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-        return result;
-      }
-    }
-    return result;
+    return Promise.reject(error);
   }
+);
+
+axios.interceptors.response.use(
+  function(response) {
+
+    return response;
+  },
+  function(error) {
+    const status = error.response.status;
+    if (status == 401) {
+
+
+      const accessToken = getCookieValue("accessToken");
+      const refreshToken = getCookieValue("refreshToken");
+      const userId = getCookieValue("userId");
+
+      if (accessToken != " " && refreshToken != " " && userId != " ") {
+        var data = {
+          refreshToken: refreshToken,
+          userId: userId
+        };
+
+        axios.post(BASE_URL + "/auth/refresh", data).then((result) =>{
+          console.log(result.data);
+          setCookieValue("accessToken",result.data.accessToken)
+        });
+      }
+      // document.location.href = "/login";
+    }
+    console.log(error.response.status);
+    return Promise.reject(error);
+  }
+);
+
+const getCookieValue = (key) => {
+  let cookieKey = key + "=";
+  let result = "";
+  const cookieArr = document.cookie.split(";");
+
+  for (let i = 0; i < cookieArr.length; i++) {
+    if (cookieArr[i][0] === " ") {
+      cookieArr[i] = cookieArr[i].substring(1);
+    }
+
+    if (cookieArr[i].indexOf(cookieKey) === 0) {
+      result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+      return result;
+    }
+  }
+  return result;
+};
+
+function setCookieValue(name, value) {
+  document.cookie = name +'='+ value +'; Path=/;';
+}
 
 export class ApiService {
-  
-    async registerUser(data) {
+  async registerUser(data) {
     return axios.post(BASE_URL + "/auth/register", data);
   }
   async loginUser(data) {
