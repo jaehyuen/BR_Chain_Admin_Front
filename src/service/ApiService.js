@@ -13,26 +13,22 @@ const BASE_URL = "http://localhost:8080/api";
 
 axios.interceptors.request.use(
   function(config) {
-
     config.headers.Authorization = "Bearer " + getCookieValue("accessToken");
     return config;
   },
   function(error) {
-
     return Promise.reject(error);
   }
 );
 
 axios.interceptors.response.use(
   function(response) {
-
     return response;
   },
   function(error) {
     const status = error.response.status;
+    console.log(error)
     if (status == 401) {
-
-
       const accessToken = getCookieValue("accessToken");
       const refreshToken = getCookieValue("refreshToken");
       const userId = getCookieValue("userId");
@@ -40,15 +36,16 @@ axios.interceptors.response.use(
       if (accessToken != " " && refreshToken != " " && userId != " ") {
         var data = {
           refreshToken: refreshToken,
-          userId: userId
+          userId: userId,
         };
 
-        axios.post(BASE_URL + "/auth/refresh", data).then((result) =>{
+        axios.post(BASE_URL + "/auth/refresh", data).then((result) => {
           console.log(result.data);
-          setCookieValue("accessToken",result.data.accessToken)
+          setCookieValue("accessToken", result.data.resultData.accessToken);
         });
+      } else {
+        document.location.href = "/login";
       }
-      // document.location.href = "/login";
     }
     console.log(error.response.status);
     return Promise.reject(error);
@@ -74,7 +71,7 @@ const getCookieValue = (key) => {
 };
 
 function setCookieValue(name, value) {
-  document.cookie = name +'='+ value +'; Path=/;';
+  document.cookie = name + "=" + value + "; Path=/;";
 }
 
 export class ApiService {
@@ -83,6 +80,9 @@ export class ApiService {
   }
   async loginUser(data) {
     return axios.post(BASE_URL + "/auth/login", data);
+  }
+  async logoutUser(data) {
+    return axios.post(BASE_URL + "/auth/logout", data);
   }
 
   async createOrg(data) {

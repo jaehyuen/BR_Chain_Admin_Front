@@ -63,9 +63,9 @@ const LoginView = () => {
                   console.log(result.data);
                   alert(result.data.resultMessage);
                   if (result.data.resultFlag) {
-                    removeCookie("accessToken");
-                    removeCookie("refreshToken");
-                    removeCookie("userId");
+                    removeCookie("accessToken",{ path: "/" });
+                    removeCookie("refreshToken",{ path: "/" });
+                    removeCookie("userId",{ path: "/" });
 
                     setCookie(
                       "accessToken",
