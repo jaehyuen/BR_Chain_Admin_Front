@@ -1,51 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Box, Container, makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Box, Container, makeStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Backdrop from '@material-ui/core/Backdrop';
-import ApiService from '../../service/ApiService';
-import AddMember from '../Member/AddMember';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
+import ApiService from "../../service/ApiService";
+import AddMember from "../Member/AddMember";
+import CheckIcon from "@material-ui/icons/Check";
+import CloseIcon from "@material-ui/icons/Close";
+import Page from "src/components/Page";
+import useReactRouter from "use-react-router";
+import { useNavigate } from "react-router-dom";
 
-import Page from 'src/components/Page';
-import useReactRouter from 'use-react-router';
-import { useNavigate } from 'react-router-dom';
-
-const CreateOrg = props => {
-  const [orgType, setOrgType] = useState('');
-  const [conCnt, setConCnt] = useState('');
+const CreateOrg = (props) => {
+  const [orgType, setOrgType] = useState("");
+  const [conCnt, setConCnt] = useState("");
   const [members, setMembers] = useState([]);
-  const [orgName, setOrgName] = useState('');
-  const [caPort, setCaPort] = useState('');
+  const [orgName, setOrgName] = useState("");
+  const [caPort, setCaPort] = useState("");
 
-  const [portErr, setPortErr] = useState(false);
+  const [portCheck, setPortCheck] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const onChangePort = member => {
+  const onChangePort = (member) => {
+    console.log(member.portCheck);
     setMembers(
-      members.map(item =>
+      members.map((item) =>
         item.conNum === member.conNum
-          ? { ...item, conPort: member.conPort, couchdbYn: member.couchdbYn }
+          ? {
+              ...item,
+              conPort: member.conPort,
+              couchdbYn: member.couchdbYn,
+              portCheck: member.portCheck,
+            }
           : item
       )
     );
   };
 
-  const onChangeOrgName = e => {
+  const onChangeOrgName = (e) => {
     console.log(e.target.value);
     setOrgName(e.target.value);
 
     setMembers(
-      members.map(member => ({
+      members.map((member) => ({
         ...member,
-        orgName: e.target.value
+        orgName: e.target.value,
       }))
     );
   };
@@ -56,35 +63,36 @@ const CreateOrg = props => {
       orgName: orgName,
       orgType: orgType,
       conType: orgType,
-      conNum: members.length
+      conNum: members.length,
+      portCheck: null,
     });
   };
 
-  const onChangeOrgType = value => {
+  const onChangeOrgType = (value) => {
     setOrgType(value);
     setMembers(
-      members.map(member =>
-        value === 'orderer'
+      members.map((member) =>
+        value === "orderer"
           ? {
               ...member,
               conType: value,
               orgType: value,
-              couchdbYn: false
+              couchdbYn: false,
             }
           : {
               ...member,
               conType: value,
-              orgType: value
+              orgType: value,
             }
       )
     );
   };
 
-  const createOrg = async e => {
+  const createOrg = async (e) => {
     e.preventDefault();
 
-    if (orgType === '') {
-      alert('조직타입 선택해야함');
+    if (orgType === "") {
+      alert("조직타입 선택해야함");
       return null;
     }
 
@@ -93,53 +101,62 @@ const CreateOrg = props => {
     const caJson = {
       orgName: orgName,
       orgType: orgType,
-      conType: 'ca',
+      conType: "ca",
       conPort: caPort,
-      conCnt: conCnt + 1
+      conCnt: conCnt + 1,
+      portCheck: portCheck,
     };
 
     data.unshift(caJson);
+
+    data.map((conInfo) => {
+      console.log(conInfo.portCheck);
+
+      if (conInfo.portCheck == false || conInfo.portCheck == null) {
+        alert("포트 확인을 해주세요");
+      }
+    });
     setIsLoading(true);
 
-    await ApiService.createOrg(data).then(result => {
+    await ApiService.createOrg(data).then((result) => {
       setIsLoading(false);
 
       alert(result.data.resultMessage);
 
       if (result.data.resultFlag) {
-        navigate('/app/org');
+        navigate("/app/org");
       }
     });
   };
 
-  const onChangeCaPort = e => {
+  const onChangeCaPort = (e) => {
     setCaPort(e.target.value);
   };
-  const portCheck = async port => {
-    await ApiService.getPortCheck(port).then(result => {
+  const onClickPortCheck = async (port) => {
+    await ApiService.getPortCheck(port).then((result) => {
       console.log(result.data.resultFlag);
-      setPortErr(!result.data.resultFlag);
+      setPortCheck(result.data.resultFlag);
     });
   };
 
-  const classes = makeStyles(theme => ({
+  const classes = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main
+      backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(3)
+      width: "100%", // Fix IE 11 issue.
+      marginTop: theme.spacing(3),
     },
     submit: {
-      margin: theme.spacing(3, 0, 2)
-    }
+      margin: theme.spacing(3, 0, 2),
+    },
   }));
 
   return (
@@ -170,7 +187,7 @@ const CreateOrg = props => {
                           variant="contained"
                           color="primary"
                           className={classes.submit}
-                          onClick={() => onChangeOrgType('peer')}
+                          onClick={() => onChangeOrgType("peer")}
                         >
                           Peer
                         </Button>
@@ -182,7 +199,7 @@ const CreateOrg = props => {
                           variant="contained"
                           color="primary"
                           className={classes.submit}
-                          onClick={() => onChangeOrgType('orderer')}
+                          onClick={() => onChangeOrgType("orderer")}
                         >
                           Orderer
                         </Button>
@@ -220,8 +237,10 @@ const CreateOrg = props => {
                           label="ca 포트"
                           name="caPort"
                           onChange={onChangeCaPort}
-                          error={portErr}
-                          helperText={portErr ? '사용중인 포트입니다.' : ''}
+                          error={portCheck == false}
+                          helperText={
+                            portCheck == false ? "사용중인 포트입니다." : ""
+                          }
                         />
                       </Grid>
 
@@ -229,10 +248,12 @@ const CreateOrg = props => {
                         <Button
                           variant="contained"
                           color="primary"
-                          onClick={() => portCheck(caPort)}
+                          onClick={() => onClickPortCheck(caPort)}
                         >
                           포트 확인
                         </Button>
+                        {portCheck == false && <CloseIcon></CloseIcon>}
+                        {portCheck == true && <CheckIcon></CheckIcon>}
                       </Grid>
                       {members.map((data, index) => (
                         <Grid item xs={12} key={index}>
@@ -245,7 +266,7 @@ const CreateOrg = props => {
                         </Grid>
                       ))}
                       <Grid item xs={12}>
-                        {orgType !== '' && (
+                        {orgType !== "" && (
                           <Button
                             fullWidth
                             variant="contained"

@@ -5,8 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ApiService from "../../service/ApiService";
+import CheckIcon from "@material-ui/icons/Check";
+import CloseIcon from "@material-ui/icons/Close";
 
-class Member extends Component {
+class AddMember extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +16,7 @@ class Member extends Component {
       conPort: "",
       conNum: "",
       couchdbYn: false,
-      portErr: false,
+      portCheck: null,
     };
   }
 
@@ -54,11 +56,14 @@ class Member extends Component {
     );
   };
 
-  portCheck = async (port) => {
+  onClickPortCheck = async (port) => {
     await ApiService.getPortCheck(port).then((result) => {
       this.setState({
-        portErr: !result.data.resultFlag,
+        portCheck:result.data.resultFlag,
+      },()=>{
+        this.props.onChanged(this.state);
       });
+      
     });
   };
 
@@ -89,8 +94,8 @@ class Member extends Component {
             label={conType + " 포트"}
             name="conPort"
             onChange={this.onChangePort}
-            error={this.state.portErr}
-            helperText={this.state.portErr ? "사용중인 포트입니다." : ""}
+            error={this.state.portCheck ==false}
+            helperText={this.state.portCheck ==false? "사용중인 포트입니다." : ""}
           />
         </Grid>
         {conType === "peer" && (
@@ -112,15 +117,17 @@ class Member extends Component {
             variant="contained"
             color="primary"
             onClick={() => {
-              this.portCheck(this.state.conPort);
+              this.onClickPortCheck(this.state.conPort);
             }}
           >
             포트 확인
           </Button>
+          {this.state.portCheck == false && <CloseIcon></CloseIcon>}
+          {this.state.portCheck == true && <CheckIcon></CheckIcon>}
         </Grid>
       </Grid>
     );
   }
 }
 
-export default Member;
+export default AddMember;
