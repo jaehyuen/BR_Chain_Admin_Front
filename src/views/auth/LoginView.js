@@ -41,9 +41,7 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: "",
-              password: "",
-              userName: "",
+              userPassword: "",
               userId: "",
             }}
             validationSchema={Yup.object().shape({
@@ -129,16 +127,16 @@ const LoginView = () => {
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  error={Boolean(touched.userPassword && errors.userPassword)}
                   fullWidth
-                  helperText={touched.password && errors.password}
+                  helperText={touched.userPassword && errors.userPassword}
                   label="Password"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"
-                  value={values.password}
+                  value={values.userPassword}
                   variant="outlined"
                 />
                 <Box my={2}>

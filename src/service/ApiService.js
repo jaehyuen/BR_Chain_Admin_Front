@@ -176,7 +176,7 @@ export class ApiService {
   }
 
   getCcListChannel(channelName) {
-    return axios.get(BASE_URL + "/core/chaincode/channel/list", {
+    return axios.get(BASE_URL + "/core/chaincode/list/channel", {
       params: {
         channelName: channelName,
       },

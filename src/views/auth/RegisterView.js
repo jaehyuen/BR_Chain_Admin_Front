@@ -40,8 +40,8 @@ const RegisterView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: "",
-              password: "",
+              userEmail: "",
+              userPassword: "",
               userId: "",
               userName: "",
             }}
@@ -127,29 +127,29 @@ const RegisterView = () => {
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.userEmail && errors.userEmail)}
                   fullWidth
-                  helperText={touched.email && errors.email}
+                  helperText={touched.userEmail && errors.userEmail}
                   label="Email Address"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
-                  value={values.email}
+                  value={values.userEmail}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  error={Boolean(touched.userPassword && errors.userPassword)}
                   fullWidth
-                  helperText={touched.password && errors.password}
+                  helperText={touched.userPassword && errors.userPassword}
                   label="Password"
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"
-                  value={values.password}
+                  value={values.userPassword}
                   variant="outlined"
                 />
 
