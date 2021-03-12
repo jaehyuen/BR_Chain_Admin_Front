@@ -124,7 +124,7 @@ const ChannelDetails = props => {
                     <TableBody>
                       {channelListPeer.map((channelList, index) => (
                         <TableRow key={index}>
-                          <TableCell>{channelList.conName}</TableCell>
+                          <TableCell>{channelList.conInfoDto.conName}</TableCell>
                           <TableCell>
                             {channelList.anchorYn.toString()}
                           </TableCell>
@@ -175,6 +175,7 @@ const ChannelDetails = props => {
                     setSelectedMember('zz');
                     setAnchorEl(event.currentTarget);
                   }}
+                  disabled
                 >
                   체인코드 활성화
                 </Button>
@@ -267,6 +268,7 @@ const ChannelDetails = props => {
                   color="primary"
                   // onClick={updateChannelConfig}
                   href={"/app/update/channel/"+channelName}
+                  disabled
                 >
                   채널 설정 변경
                 </Button>

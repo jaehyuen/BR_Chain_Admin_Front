@@ -9,7 +9,7 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-let sockJS = new SockJS('http://localhost:8080');
+let sockJS = new SockJS('http://localhost:8080/sock');
 let stompClient = Stomp.over(sockJS);
 stompClient.debug = () => {};
 

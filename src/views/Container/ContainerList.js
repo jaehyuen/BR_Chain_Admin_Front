@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import ApiService from '../../service/ApiService';
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Grid from '@material-ui/core/Grid';
-import Pagination from '@material-ui/lab/Pagination';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
+import React, { useState, useEffect } from "react";
+import ApiService from "../../service/ApiService";
+import Button from "@material-ui/core/Button";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableBody from "@material-ui/core/TableBody";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Grid from "@material-ui/core/Grid";
+import Pagination from "@material-ui/lab/Pagination";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
 
-import { Box, Container, makeStyles } from '@material-ui/core';
-import Page from 'src/components/Page';
-import Paper from '@material-ui/core/Paper';
+import { Box, Container, makeStyles } from "@material-ui/core";
+import Page from "src/components/Page";
+import Paper from "@material-ui/core/Paper";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
+    minHeight: "100%",
     paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
+    paddingTop: theme.spacing(3),
+  },
 }));
 
-const ContainerList = props => {
+const ContainerList = (props) => {
   const classes = useStyles();
   const [conList, setConList] = useState([]);
   const [noOfPages, setNoOfPages] = useState(0);
@@ -34,10 +34,10 @@ const ContainerList = props => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    ApiService.getContainerList().then(result => {
+    ApiService.getContainerList().then((result) => {
       setConList(result.data.resultData);
       setNoOfPages(Math.ceil(result.data.resultData.length / 10));
-      console.log("Zz")
+      console.log("Zz");
     });
   }, []);
 
@@ -48,22 +48,22 @@ const ContainerList = props => {
   const removeAllContainers = async () => {
     setIsLoading(true);
 
-    await ApiService.removeContainers('').then(result => {
+    await ApiService.removeContainers("").then((result) => {
       setIsLoading(false);
 
-      ApiService.getContainerList().then(result2 => {
+      ApiService.getContainerList().then((result2) => {
         setConList(result2.data.resultData);
         setNoOfPages(Math.ceil(result.data.resultData.length / 10));
       });
     });
   };
 
-  const removeContainer = async conId => {
+  const removeContainer = async (conId) => {
     console.log(this.props);
     setIsLoading(true);
 
-    await ApiService.removeContainers(conId).then(result => {
-      ApiService.getContainerList().then(result2 => {
+    await ApiService.removeContainers(conId).then((result) => {
+      ApiService.getContainerList().then((result2) => {
         setConList(result2.data.resultData);
         setNoOfPages(Math.ceil(result.data.resultData.length / 10));
       });
@@ -71,11 +71,11 @@ const ContainerList = props => {
   };
 
   const stringStyle = {
-    display: 'block',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    width: '100px',
-    whiteSpace: 'nowrap'
+    display: "block",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    width: "100px",
+    whiteSpace: "nowrap",
   };
 
   return (
@@ -147,6 +147,7 @@ const ContainerList = props => {
                   />
 
                   <Button
+                    disabled
                     variant="contained"
                     color="secondary"
                     onClick={removeAllContainers}

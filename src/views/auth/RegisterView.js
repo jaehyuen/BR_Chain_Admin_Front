@@ -46,7 +46,7 @@ const RegisterView = () => {
               userName: "",
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string()
+              userEmail: Yup.string()
                 .email("Must be a valid email")
                 .max(255)
                 .required("Email is required"),
@@ -56,7 +56,7 @@ const RegisterView = () => {
               userId: Yup.string()
                 .max(255)
                 .required("ID is required"),
-              password: Yup.string()
+                userPassword: Yup.string()
                 .max(255)
                 .required("password is required"),
             })}
@@ -132,7 +132,7 @@ const RegisterView = () => {
                   helperText={touched.userEmail && errors.userEmail}
                   label="Email Address"
                   margin="normal"
-                  name="email"
+                  name="userEmail"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
@@ -145,7 +145,7 @@ const RegisterView = () => {
                   helperText={touched.userPassword && errors.userPassword}
                   label="Password"
                   margin="normal"
-                  name="password"
+                  name="userPassword"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"

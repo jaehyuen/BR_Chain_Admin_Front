@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-const BASE_URL = "http://localhost:8080/api";
+// const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "http://34.64.205.180:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api/core";
 
 // axios.interceptors.request.use(function (config) {
@@ -86,7 +87,7 @@ export class ApiService {
   }
 
   async createOrg(data) {
-    return await axios.post(BASE_URL + "/core/create/org", data);
+    return await axios.post(BASE_URL + "/core/org/create", data);
   }
 
   async createChannel(data) {
@@ -125,7 +126,7 @@ export class ApiService {
   }
 
   async updateAnchor(channelName, conName) {
-    return await axios.get(BASE_URL + "/core/channel/anchor", {
+    return await axios.get(BASE_URL + "/core/channel/update/anchor", {
       params: {
         channelName: channelName,
         conName: conName,
@@ -134,7 +135,7 @@ export class ApiService {
   }
 
   async getOrgList(type) {
-    return await axios.get(BASE_URL + "/core/orgs", {
+    return await axios.get(BASE_URL + "/core/org/list", {
       params: {
         type: type,
       },
@@ -142,7 +143,7 @@ export class ApiService {
   }
 
   getContainerList() {
-    return axios.get(BASE_URL + "/core/containers");
+    return axios.get(BASE_URL + "/core/container/list");
   }
   getChannelList() {
     return axios.get(BASE_URL + "/core/channel/list");
@@ -200,7 +201,7 @@ export class ApiService {
   }
 
   getMemberList(orgName) {
-    return axios.get(BASE_URL + "/core/members", {
+    return axios.get(BASE_URL + "/core/member/list", {
       params: {
         orgName: orgName,
       },

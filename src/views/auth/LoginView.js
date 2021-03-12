@@ -45,7 +45,7 @@ const LoginView = () => {
               userId: "",
             }}
             validationSchema={Yup.object().shape({
-              password: Yup.string()
+              userPassword: Yup.string()
                 .max(255)
                 .required("Password is required"),
               userId: Yup.string()
@@ -61,9 +61,9 @@ const LoginView = () => {
                   console.log(result.data);
                   alert(result.data.resultMessage);
                   if (result.data.resultFlag) {
-                    removeCookie("accessToken",{ path: "/" });
-                    removeCookie("refreshToken",{ path: "/" });
-                    removeCookie("userId",{ path: "/" });
+                    removeCookie("accessToken", { path: "/" });
+                    removeCookie("refreshToken", { path: "/" });
+                    removeCookie("userId", { path: "/" });
 
                     setCookie(
                       "accessToken",
@@ -132,7 +132,7 @@ const LoginView = () => {
                   helperText={touched.userPassword && errors.userPassword}
                   label="Password"
                   margin="normal"
-                  name="password"
+                  name="userPassword"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"

@@ -235,7 +235,7 @@ const MemberDetails = (props) => {
               <TableBody>
                 {channelListPeer.map((channelPeer, index) => (
                   <TableRow key={index} hover={true}>
-                    <TableCell>{channelPeer.channelName}</TableCell>
+                    <TableCell>{channelPeer.channelInfoDto.channelName}</TableCell>
                     <TableCell>{channelPeer.anchorYn.toString()}</TableCell>
                   </TableRow>
                 ))}
@@ -267,9 +267,9 @@ const MemberDetails = (props) => {
               <TableBody>
               {ccListPeer.map((ccPeer, index) => (
                   <TableRow key={index} hover={true}>
-                    <TableCell>{ccPeer.ccName}</TableCell>
+                    <TableCell>{ccPeer.ccInfoDto.ccName}</TableCell>
                     <TableCell>{ccPeer.ccVersion}</TableCell>
-                    <TableCell>{ccPeer.ccLang}</TableCell>
+                    <TableCell>{ccPeer.ccInfoDto.ccLang}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

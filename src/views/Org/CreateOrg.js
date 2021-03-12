@@ -109,24 +109,30 @@ const CreateOrg = (props) => {
 
     data.unshift(caJson);
 
+    var isPortCheck = true;
     data.map((conInfo) => {
       console.log(conInfo.portCheck);
 
       if (conInfo.portCheck == false || conInfo.portCheck == null) {
         alert("포트 확인을 해주세요");
+        isPortCheck = false;
+        return;
       }
     });
-    setIsLoading(true);
 
-    await ApiService.createOrg(data).then((result) => {
-      setIsLoading(false);
+    if (isPortCheck) {
+      setIsLoading(true);
 
-      alert(result.data.resultMessage);
+      await ApiService.createOrg(data).then((result) => {
+        setIsLoading(false);
 
-      if (result.data.resultFlag) {
-        navigate("/app/org");
-      }
-    });
+        alert(result.data.resultMessage);
+
+        if (result.data.resultFlag) {
+          navigate("/app/org");
+        }
+      });
+    }
   };
 
   const onChangeCaPort = (e) => {
