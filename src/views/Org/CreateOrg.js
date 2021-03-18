@@ -120,6 +120,7 @@ const CreateOrg = (props) => {
       }
     });
 
+    console.log(data)
     if (isPortCheck) {
       setIsLoading(true);
 

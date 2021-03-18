@@ -93,18 +93,18 @@ function ConfirmationDialogRaw(props) {
           {ccList.map((list, index) => (
             <FormControlLabel
               // value={"이름 : "+list.ccName+" 버전 : "+list.ccVersion}
-              value={list.ccName + "," + list.ccVersion + "," + list.ccLang}
+              value={list.ccInfoDto.ccName + "," + list.ccInfoDto.ccVersion + "," + list.ccInfoDto.ccLang+"," + list.ccInfoDto.id}
               value1="test1"
               value2="test1"
               key={index}
               control={<Radio />}
               label={
                 "이름 : " +
-                list.ccName +
+                list.ccInfoDto.ccName +
                 " 버전 : " +
-                list.ccVersion +
+                list.ccInfoDto.ccVersion +
                 " 언어 : " +
-                list.ccLang
+                list.ccInfoDto.ccLang
               }
             />
           ))}
@@ -170,6 +170,7 @@ const ChaincodeListChannel = (props) => {
       ccName: arr[0],
       ccVersion: arr[1],
       ccLang: arr[2],
+      id: arr[3]
     };
     console.log(data);
 

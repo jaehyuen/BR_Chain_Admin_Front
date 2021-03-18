@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-// const BASE_URL = "http://localhost:8080/api";
-const BASE_URL = "http://34.64.205.180:8080/api";
+const BASE_URL = "http://localhost:8080/api";
+// const BASE_URL = "http://192.168.65.169:8080/api";
+// const BASE_URL = "http://34.64.205.180:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api/core";
 
 // axios.interceptors.request.use(function (config) {
@@ -99,7 +100,7 @@ export class ApiService {
   }
 
   async activeCc(data) {
-    return await axios.post(BASE_URL + "/chaincode/active", data);
+    return await axios.post(BASE_URL + "/core/chaincode/active", data);
   }
 
   async uploadCc(data) {
@@ -185,7 +186,7 @@ export class ApiService {
   }
 
   getCcListActiveInChannel(channelName) {
-    return axios.get(BASE_URL + "/core/chaincode/active", {
+    return axios.get(BASE_URL + "/core/chaincode/list/toactive", {
       params: {
         channelName: channelName,
       },

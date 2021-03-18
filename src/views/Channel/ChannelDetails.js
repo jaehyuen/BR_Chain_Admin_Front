@@ -130,7 +130,7 @@ const ChannelDetails = props => {
                           </TableCell>
                           <TableCell>
                             <Button variant="contained" color="secondary"
-                            onClick={()=>setAnchorPeer(channelList.conName)}>
+                            onClick={()=>setAnchorPeer(channelList.conInfoDto.conName)}>
                               앵커 설정?
                             </Button>
                           </TableCell>
@@ -175,7 +175,7 @@ const ChannelDetails = props => {
                     setSelectedMember('zz');
                     setAnchorEl(event.currentTarget);
                   }}
-                  disabled
+                  
                 >
                   체인코드 활성화
                 </Button>
