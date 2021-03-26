@@ -12,7 +12,7 @@ import ChannelGraph from './ChannelGraph';
 import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
-import TrafficByDevice from './TrafficByDevice';
+import ContainerGraph from './ContainerGraph';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,7 +88,7 @@ const Dashboard = () => {
             xl={3}
             xs={12}
           >
-            <TrafficByDevice />
+            <ContainerGraph />
           </Grid>
           <Grid
             item
