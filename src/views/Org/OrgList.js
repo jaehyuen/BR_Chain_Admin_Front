@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Page from 'src/components/Page';
 import { useNavigate } from 'react-router-dom';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.dark,
