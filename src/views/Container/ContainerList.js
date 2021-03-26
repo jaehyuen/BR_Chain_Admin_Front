@@ -15,6 +15,8 @@ import Typography from "@material-ui/core/Typography";
 
 import { Box, Container, makeStyles } from "@material-ui/core";
 import Page from "src/components/Page";
+import Tooltip from "@material-ui/core/Tooltip";
+import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
   },
 }));
+
+const LightTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: "rgba(0, 0, 0, 0.87)",
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}))(Tooltip);
 
 const ContainerList = (props) => {
   const classes = useStyles();
@@ -74,7 +85,7 @@ const ContainerList = (props) => {
     display: "block",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    width: "100px",
+    width: "200px",
     whiteSpace: "nowrap",
   };
 
@@ -108,9 +119,17 @@ const ContainerList = (props) => {
                         .map((org, index) => (
                           <TableRow key={index}>
                             <TableCell>
-                              <div style={stringStyle}>{org.conId}</div>
+                              <LightTooltip title={org.conId}>
+                                <div style={stringStyle}>{org.conId}</div>
+                              </LightTooltip>
                             </TableCell>
-                            <TableCell>{org.conName.substring(1)}</TableCell>
+                            <TableCell>
+                              <LightTooltip title={org.conName.substring(1)}>
+                                <div style={stringStyle}>
+                                  {org.conName.substring(1)}
+                                </div>
+                              </LightTooltip>
+                            </TableCell>
                             <TableCell>{org.conPort}</TableCell>
                             <TableCell>{org.conCreated}</TableCell>
                             <TableCell>{org.conStatus}</TableCell>

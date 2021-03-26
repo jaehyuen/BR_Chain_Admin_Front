@@ -8,7 +8,7 @@ import Page from 'src/components/Page';
 import Budget from './Budget';
 import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
-import Sales from './Sales';
+import ChannelGraph from './ChannelGraph';
 import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
@@ -79,7 +79,7 @@ const Dashboard = () => {
             xl={9}
             xs={12}
           >
-            <Sales />
+            <ChannelGraph />
           </Grid>
           <Grid
             item

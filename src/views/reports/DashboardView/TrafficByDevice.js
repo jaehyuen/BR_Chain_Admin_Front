@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Doughnut } from 'react-chartjs-2';
@@ -26,22 +26,24 @@ const useStyles = makeStyles(() => ({
 const TrafficByDevice = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const [data1, setdata] = useState({})
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [63, 15, 11,12],
         backgroundColor: [
           colors.indigo[500],
           colors.red[600],
-          colors.orange[600]
+          colors.orange[600],
+          colors.blue[600]
         ],
         borderWidth: 8,
         borderColor: colors.common.white,
         hoverBorderColor: colors.common.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ['Ca', 'Peer', 'Orderer','Chaincode']
   };
 
   const options = {
@@ -68,22 +70,28 @@ const TrafficByDevice = ({ className, ...rest }) => {
 
   const devices = [
     {
-      title: 'Desktop',
+      title: 'Ca',
       value: 63,
       icon: LaptopMacIcon,
       color: colors.indigo[500]
     },
     {
-      title: 'Tablet',
+      title: 'Peer',
       value: 15,
       icon: TabletIcon,
       color: colors.red[600]
     },
     {
-      title: 'Mobile',
-      value: 23,
+      title: 'Orderer',
+      value: 11,
       icon: PhoneIcon,
       color: colors.orange[600]
+    },
+    {
+      title: 'Chaincode',
+      value: 12,
+      icon: PhoneIcon,
+      color: colors.blue[600]
     }
   ];
 
@@ -92,7 +100,7 @@ const TrafficByDevice = ({ className, ...rest }) => {
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="실행중인 컨테이너 현황" />
       <Divider />
       <CardContent>
         <Box
@@ -132,7 +140,7 @@ const TrafficByDevice = ({ className, ...rest }) => {
                 variant="h2"
               >
                 {value}
-                %
+                개
               </Typography>
             </Box>
           ))}

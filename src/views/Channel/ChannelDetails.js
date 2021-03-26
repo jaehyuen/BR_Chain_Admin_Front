@@ -156,9 +156,9 @@ const ChannelDetails = props => {
                     <TableBody>
                       {chaincodeListChannel.map((chaincodeList, index) => (
                         <TableRow key={index}>
-                          <TableCell>{chaincodeList.ccName}</TableCell>
+                          <TableCell>{chaincodeList.ccInfoDto.ccName}</TableCell>
                           <TableCell>{chaincodeList.ccVersion}</TableCell>
-                          <TableCell>{chaincodeList.ccLang}</TableCell>
+                          <TableCell>{chaincodeList.ccInfoDto.ccLang}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

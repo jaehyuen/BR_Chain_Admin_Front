@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const Sales = ({ className, ...rest }) => {
+const ChannelGraph = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [data, setdata] = useState({})
@@ -33,7 +33,6 @@ const Sales = ({ className, ...rest }) => {
       let tx=[]
       let channel=[]
       console.log(result.data.resultData)
-      // console.log(result.data.resultData.length)
 
       for(let i=0;i<result.data.resultData.length;i++){
 
@@ -129,16 +128,7 @@ const Sales = ({ className, ...rest }) => {
       {...rest}
     >
       <CardHeader
-        // action={(
-        //   <Button
-        //     endIcon={<ArrowDropDownIcon />}
-        //     size="small"
-        //     variant="text"
-        //   >
-        //     Last 7 days
-        //   </Button>
-        // )}
-        title="test"
+        title="채널 현황"
       />
       <Divider />
       <CardContent>
@@ -157,8 +147,8 @@ const Sales = ({ className, ...rest }) => {
   );
 };
 
-Sales.propTypes = {
+ChannelGraph.propTypes = {
   className: PropTypes.string
 };
 
-export default Sales;
+export default ChannelGraph;
