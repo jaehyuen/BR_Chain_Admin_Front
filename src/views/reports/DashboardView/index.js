@@ -5,7 +5,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import Budget from './Budget';
+import ChannelSummary from './ChannelSummary';
 import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
 import ChannelGraph from './ChannelGraph';
@@ -43,7 +43,7 @@ const Dashboard = () => {
             xl={5}
             xs={12}
           >
-            <Budget />
+            <ChannelSummary />
           </Grid>
           <Grid
             item
