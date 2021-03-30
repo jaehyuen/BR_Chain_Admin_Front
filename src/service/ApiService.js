@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-const BASE_URL = "http://localhost:8080/api";
+// const BASE_URL = "http://localhost:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api";
-// const BASE_URL = "http://34.64.205.180:8080/api";
+const BASE_URL = "http://34.64.205.180:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api/core";
 
 // axios.interceptors.request.use(function (config) {

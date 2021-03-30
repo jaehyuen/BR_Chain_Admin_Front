@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const ChannelSummary = ({ className, ...rest }) => {
   const [channelList, setChannelList] = useState([]);
   const [channel, setChannel] = useState({});
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     if (channelList.length == 0) {
@@ -84,13 +84,21 @@ const ChannelSummary = ({ className, ...rest }) => {
           <Grid container justify="space-between" spacing={3}>
             <Grid item>
               <Typography color="textSecondary" gutterBottom variant="h6">
-                <div>{channel.channelName} 채널</div>
+                {channelList.length == 0 ? (
+                  <div>채널없음</div>
+                ) : (
+                  <div>{channel.channelName} 채널</div>
+                )}
               </Typography>
               <Typography color="textPrimary" variant="h4">
-                <div>
-                  3월 블록수 : {channel.nowBlockCnt}, 트렌젝션수 :{" "}
-                  {channel.nowTxCnt}
-                </div>
+                {channelList.length == 0 ? (
+                  <div></div>
+                ) : (
+                  <div>
+                    3월 블록수 : {channel.nowBlockCnt}, 트렌젝션수 :{" "}
+                    {channel.nowTxCnt}
+                  </div>
+                )}
               </Typography>
             </Grid>
             <Grid item>
@@ -100,27 +108,33 @@ const ChannelSummary = ({ className, ...rest }) => {
             </Grid>
           </Grid>
 
-          {channel.flag == true && (
-            <Box mt={2} display="flex" alignItems="center">
-              <ArrowUpwardIcon className={classes.increaseIcon} />
-              <Typography className={classes.increaseValue} variant="body2">
-                {channel.percent}%
-              </Typography>
-              <Typography color="textSecondary" variant="caption">
-                Since last month
-              </Typography>
-            </Box>
-          )}
-          {channel.flag == false && (
-            <Box mt={2} display="flex" alignItems="center">
-              <ArrowDownwardIcon className={classes.decreaseIcon} />
-              <Typography className={classes.decreaseValue} variant="body2">
-                {channel.percent}%
-              </Typography>
-              <Typography color="textSecondary" variant="caption">
-                Since last month
-              </Typography>
-            </Box>
+          {channelList.length == 0 ? (
+            <div></div>
+          ) : (
+            <div>
+              {channel.flag == true && (
+                <Box mt={2} display="flex" alignItems="center">
+                  <ArrowUpwardIcon className={classes.increaseIcon} />
+                  <Typography className={classes.increaseValue} variant="body2">
+                    {channel.percent}%
+                  </Typography>
+                  <Typography color="textSecondary" variant="caption">
+                    Since last month
+                  </Typography>
+                </Box>
+              )}
+              {channel.flag == false && (
+                <Box mt={2} display="flex" alignItems="center">
+                  <ArrowDownwardIcon className={classes.decreaseIcon} />
+                  <Typography className={classes.decreaseValue} variant="body2">
+                    {channel.percent}%
+                  </Typography>
+                  <Typography color="textSecondary" variant="caption">
+                    Since last month
+                  </Typography>
+                </Box>
+              )}
+            </div>
           )}
         </CardContent>
       </Flip>

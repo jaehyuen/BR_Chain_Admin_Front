@@ -85,6 +85,7 @@ const OrgList = props => {
                       <TableCell>
                         {' '}
                         <Button
+                        disabled
                           value={org.orgName}
                           variant="contained"
                           color="secondary"
@@ -99,7 +100,7 @@ const OrgList = props => {
               </Table>
             </TableContainer>
             <br></br>
-            <Button variant="contained" color="primary" href="/app/create/org">
+            <Button variant="contained" color="primary" href="/app/create/org" disabled>
               조직추가
             </Button>
           </Box>

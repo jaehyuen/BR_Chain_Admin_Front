@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const TotalCustomers = ({ className, ...rest }) => {
   const [peerList, setPeerList] = useState([]);
   const [peer, setPeer] = useState({});
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     if (peerList.length == 0) {
@@ -67,12 +67,19 @@ const TotalCustomers = ({ className, ...rest }) => {
         <CardContent>
           <Grid container justify="space-between" spacing={3}>
             <Grid item>
-              <Typography color="textSecondary" gutterBottom variant="h6">
-                {peer.conName} 피어에
-              </Typography>
-              <Typography color="textPrimary" variant="h4">
-                설치된 체인코드 {peer.ccCnt} 개
-              </Typography>
+            {peerList.length == 0 ? (
+                  <div>피어없음</div>
+                ) : (
+                  <div>
+                  <Typography color="textSecondary" gutterBottom variant="h6">
+                  {peer.conName} 피어에
+                </Typography>
+                <Typography color="textPrimary" variant="h4">
+                  설치된 체인코드 {peer.ccCnt} 개
+                </Typography>
+                </div>
+                )}
+         
             </Grid>
             <Grid item>
               <Avatar className={classes.icon}>

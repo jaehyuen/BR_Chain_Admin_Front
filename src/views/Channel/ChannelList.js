@@ -83,7 +83,7 @@ const ChannelList = props => {
               </Table>
             </TableContainer>
             <br></br>
-            <Button variant="contained" color="primary" href="/app/create/channel">
+            <Button variant="contained" color="primary" href="/app/create/channel" disabled>
               채널 추가
             </Button>
           </Box>
