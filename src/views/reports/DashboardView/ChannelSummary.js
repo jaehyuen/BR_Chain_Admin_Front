@@ -15,14 +15,13 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import MoneyIcon from "@material-ui/icons/Money";
 import ApiService from "../../../service/ApiService";
-import Rotate from "react-reveal/Rotate";
-import Flip from 'react-reveal/Flip'
+import Flip from "react-reveal/Flip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
   },
-  avatar: {
+  icon: {
     backgroundColor: colors.red[600],
     height: 56,
     width: 56,
@@ -72,7 +71,7 @@ const ChannelSummary = ({ className, ...rest }) => {
         }
 
         setChannel(channelList[index]);
-      }, 2000);
+      }, 5000);
     }
   }, [channel]);
 
@@ -80,63 +79,51 @@ const ChannelSummary = ({ className, ...rest }) => {
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
-      {/* <Rotate top left when={show}> */}
-        <Flip top when={show}>
-      <CardContent>
-        <Grid container justify="space-between" spacing={3}>
-          <Grid item>
-            <Typography color="textSecondary" gutterBottom variant="h6">
-              {/* <Rotate top left when={show}> */}
+      <Flip top when={show}>
+        <CardContent>
+          <Grid container justify="space-between" spacing={3}>
+            <Grid item>
+              <Typography color="textSecondary" gutterBottom variant="h6">
                 <div>{channel.channelName} 채널</div>
-              {/* </Rotate> */}
-            </Typography>
-            <Typography color="textPrimary" variant="h4">
-              {/* <Rotate top left when={show}> */}
+              </Typography>
+              <Typography color="textPrimary" variant="h4">
                 <div>
                   3월 블록수 : {channel.nowBlockCnt}, 트렌젝션수 :{" "}
                   {channel.nowTxCnt}
                 </div>
-              {/* </Rotate> */}
-            </Typography>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Avatar className={classes.icon}>
+                <MoneyIcon />
+              </Avatar>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-              <MoneyIcon />
-            </Avatar>
-          </Grid>
-        </Grid>
 
-        {channel.flag == true && (
-          <Box mt={2} display="flex" alignItems="center">
-            {/* <Rotate top left when={show}> */}
-           
-            <ArrowUpwardIcon className={classes.increaseIcon} />
-            <Typography className={classes.increaseValue} variant="body2">
-            
-              {channel.percent}%
-              
-            </Typography>
-            <Typography color="textSecondary" variant="caption">
-              Since last month
-            </Typography>
-        
-            {/* </Rotate> */}
-          </Box>
-        )}
-        {channel.flag == false && (
-          <Box mt={2} display="flex" alignItems="center">
-            <ArrowDownwardIcon className={classes.decreaseIcon} />
-            <Typography className={classes.decreaseValue} variant="body2">
-              {channel.percent}%
-            </Typography>
-            <Typography color="textSecondary" variant="caption">
-              Since last month
-            </Typography>
-          </Box>
-        )}
-      </CardContent>
+          {channel.flag == true && (
+            <Box mt={2} display="flex" alignItems="center">
+              <ArrowUpwardIcon className={classes.increaseIcon} />
+              <Typography className={classes.increaseValue} variant="body2">
+                {channel.percent}%
+              </Typography>
+              <Typography color="textSecondary" variant="caption">
+                Since last month
+              </Typography>
+            </Box>
+          )}
+          {channel.flag == false && (
+            <Box mt={2} display="flex" alignItems="center">
+              <ArrowDownwardIcon className={classes.decreaseIcon} />
+              <Typography className={classes.decreaseValue} variant="body2">
+                {channel.percent}%
+              </Typography>
+              <Typography color="textSecondary" variant="caption">
+                Since last month
+              </Typography>
+            </Box>
+          )}
+        </CardContent>
       </Flip>
-      {/* </Rotate> */}
     </Card>
   );
 };

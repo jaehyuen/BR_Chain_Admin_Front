@@ -20,7 +20,9 @@ import ApiService from "../../service/ApiService";
 import { result } from "lodash";
 
 const useStyles = makeStyles(() => ({
-  root: {},
+  root: {
+    backgroundColor:"#646ecb",
+  },
   avatar: {
     width: 60,
     height: 60,

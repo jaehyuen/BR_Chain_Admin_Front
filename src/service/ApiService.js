@@ -153,6 +153,10 @@ export class ApiService {
     return axios.get(BASE_URL + "/core/channel/list/summary");
   }
 
+  getChaincodeSummaryList() {
+    return axios.get(BASE_URL + "/core/chaincode/list/summary");
+  }
+
   getCcList() {
     return axios.get(BASE_URL + "/core/chaincode/list");
   }

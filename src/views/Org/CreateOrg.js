@@ -173,7 +173,7 @@ const CreateOrg = (props) => {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : (
-        <Page className={classes.root} title="OrgList">
+        <Page className={classes.root} title="Orgs">
           <Container maxWidth="lg">
             <Box mt={3}>
               <Container component="main">

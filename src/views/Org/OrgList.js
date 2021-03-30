@@ -46,7 +46,7 @@ const OrgList = props => {
 
   return (
     <div>
-      <Page className={classes.root} title="OrgList">
+      <Page className={classes.root} title="Orgs">
         <Container maxWidth="lg">
           <Typography component="h1" variant="h5">
             조직 리스트

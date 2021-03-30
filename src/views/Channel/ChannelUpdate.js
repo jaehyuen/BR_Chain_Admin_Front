@@ -62,7 +62,7 @@ const ChannelList = props => {
   return (
     <div>
       {' '}
-      <Page className={useStyles.root} title="OrgList">
+      <Page className={useStyles.root} title="Channels">
         <Container maxWidth="lg">
           <Box mt={3}>
             <Container component="main">

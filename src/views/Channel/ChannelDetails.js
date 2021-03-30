@@ -101,7 +101,7 @@ const ChannelDetails = props => {
         </Backdrop>
       ) : (
         <div>
-          <Page className={classes.root} title="ChannelList">
+          <Page className={classes.root} title="Channels">
             <Container maxWidth="lg">
               <Typography component="h1" variant="h5">
                 채널 상세정보

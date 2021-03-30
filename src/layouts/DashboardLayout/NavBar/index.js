@@ -20,8 +20,12 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  Code as CodeIcon,
+  Server as ServerIcon,
+  Box as BoxIcon
 } from 'react-feather';
+import ReceiptIcon from '@material-ui/icons/ReceiptOutlined';
 import NavItem from './NavItem';
 
 const user = {
@@ -39,23 +43,34 @@ const items = [
   {
     href: '/app/org',
     icon: UsersIcon,
-    title: 'OrgList'
+    title: 'Orgs'
   },
   {
     href: '/app/channel',
     icon: ShoppingBagIcon,
-    title: 'ChannelList'
+    title: 'Channels'
   },
   {
     href: '/app/chaincode',
-    icon: UserIcon,
-    title: 'ChaincodeList'
+    icon: CodeIcon,
+    title: 'Chaincodes'
   },
   {
     href: '/app/container',
-    icon: SettingsIcon,
-    title: 'ContainerList'
+    icon: ServerIcon,
+    title: 'Containers'
+  },
+  {
+    href: '/app/container',
+    icon: BoxIcon,
+    title: 'BlockTest'
+  },
+  {
+    href: '/app/container',
+    icon: ReceiptIcon,
+    title: 'TxTest'
   }
+
 ];
 
 const useStyles = makeStyles(() => ({

@@ -65,7 +65,7 @@ const MemberList = props => {
         </Backdrop>
       ) : (
         <div>
-          <Page className={classes.root} title="OrgList">
+          <Page className={classes.root} title="Orgs">
             <Container maxWidth="lg">
               <Typography component="h1" variant="h5">
                 조직 상세정보

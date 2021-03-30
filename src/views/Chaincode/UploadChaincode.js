@@ -133,7 +133,7 @@ const UploadChaincode = (props) => {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : (
-        <Page className={classes.root} title="OrgList">
+        <Page className={classes.root} title="Chaincodes">
           <Container maxWidth="lg">
             <Box mt={3}>
               <Container component="main">
