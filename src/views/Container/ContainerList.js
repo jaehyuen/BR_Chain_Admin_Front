@@ -105,11 +105,11 @@ const ContainerList = (props) => {
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>컨테이너 아이디</TableCell>
-                        <TableCell>컨테이너 이름</TableCell>
-                        <TableCell>컨테이너 포트</TableCell>
-                        <TableCell>컨테이너 생성시간</TableCell>
-                        <TableCell>컨테이너 상태</TableCell>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Port</TableCell>
+                        <TableCell>CreateTime</TableCell>
+                        <TableCell>Status</TableCell>
                         {/* <TableCell></TableCell> */}
                       </TableRow>
                     </TableHead>

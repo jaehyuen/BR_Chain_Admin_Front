@@ -56,9 +56,9 @@ const OrgList = props => {
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>조직 타입</TableCell>
-                    <TableCell>조직 이름</TableCell>
-                    <TableCell>조직 맴버 개수</TableCell>
+                    <TableCell>Type</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Members</TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                   </TableRow>

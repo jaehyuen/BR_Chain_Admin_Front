@@ -61,14 +61,14 @@ const items = [
     title: 'Containers'
   },
   {
-    href: '/app/container',
+    href: '/app/block',
     icon: BoxIcon,
     title: 'BlockTest'
   },
   {
-    href: '/app/container',
+    href: '/app/transaction',
     icon: ReceiptIcon,
-    title: 'TxTest'
+    title: 'TransactionTest'
   }
 
 ];

@@ -69,11 +69,11 @@ const ChaincodeList = (props) => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>체인코드 이름</TableCell>
-              <TableCell>체인코드 언어</TableCell>
-              <TableCell>체인코드 버전</TableCell>
-              <TableCell>체인코드 설명</TableCell>
-              <TableCell>체인코드 경로</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Lang</TableCell>
+              <TableCell>Version</TableCell>
+              <TableCell>Desc</TableCell>
+              <TableCell>Path</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>

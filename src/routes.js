@@ -25,6 +25,8 @@ import UploadChaincode from "src/views/Chaincode/UploadChaincode";
 
 import ContainerList from "src/views/Container/ContainerList";
 
+import BlockList from "src/views/Block/BlockList";
+
 const routes = [
   {
     path: 'app1',
@@ -53,7 +55,7 @@ const routes = [
       { path: 'update/channel/:channelName', element: <ChannelUpdate  /> },
       { path: 'upload/chaincode', element: <UploadChaincode /> },
       { path: 'transaction', element: <OrgList /> },
-      { path: 'block', element: <OrgList /> },
+      { path: 'block', element: <BlockList /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]

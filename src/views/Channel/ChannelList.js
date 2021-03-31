@@ -49,10 +49,10 @@ const ChannelList = props => {
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>채널 이름</TableCell>
-                    <TableCell>채널 트렌젝션 개수</TableCell>
-                    <TableCell>채널 블록 개수</TableCell>
-                    <TableCell>오더링 조직</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>TxCount</TableCell>
+                    <TableCell>BlockCount</TableCell>
+                    <TableCell>OrderingOrg</TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
@@ -74,7 +74,7 @@ const ChannelList = props => {
                             )
                           }
                         >
-                          채널 상세 정보
+                          detail
                         </Button>
                       </TableCell>
                     </TableRow>
