@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../service/ApiService";
 
-import { Box, Container, makeStyles } from "@material-ui/core";
+import { Box, Container, makeStyles, Link } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -14,11 +14,17 @@ import TableContainer from "@material-ui/core/TableContainer";
 import Typography from "@material-ui/core/Typography";
 
 import Page from "src/components/Page";
-import { useNavigate } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Select from "@material-ui/core/Select";
+
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import IconButton from "@material-ui/core/IconButton";
+import Collapse from "@material-ui/core/Collapse";
+
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +43,69 @@ const LightTooltip = withStyles((theme) => ({
     fontSize: 11,
   },
 }))(Tooltip);
+
+function Row(props) {
+  const { block } = props;
+  const [open, setOpen] = React.useState(false);
+  // const classes = useRowStyles();
+
+  const stringStyle = {
+    display: "block",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    width: "200px",
+    whiteSpace: "nowrap",
+  };
+
+  return (
+    <React.Fragment>
+      <TableRow
+      // className={classes.root}
+      >
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell>
+          <LightTooltip title={block.blockDataHash}>
+            <div style={stringStyle}>{block.blockDataHash}</div>
+          </LightTooltip>
+        </TableCell>
+        <TableCell>{block.blockNum}</TableCell>
+        <TableCell>
+          <LightTooltip title={block.prevDataHash}>
+            <div style={stringStyle}>
+              <Link
+                component={RouterLink}
+                to={"/test" + block.prevDataHash}
+                variant="h6"
+              >
+                {block.prevDataHash}
+              </Link>
+            </div>
+          </LightTooltip>
+        </TableCell>
+        <TableCell>{block.timestamp}</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box margin={1}>
+              <Typography variant="h6" gutterBottom component="div">
+                History
+              </Typography>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+}
 
 const BlockList = (props) => {
   const classes = useStyles();
@@ -65,14 +134,6 @@ const BlockList = (props) => {
     setCurrentChannel(event.target.value);
   };
 
-  const stringStyle = {
-    display: "block",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    width: "200px",
-    whiteSpace: "nowrap",
-  };
-
   return (
     <div>
       <Page className={classes.root} title="Blocks">
@@ -92,28 +153,16 @@ const BlockList = (props) => {
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>blockDataHashblockDataHashblockDataHashblockDataHash</TableCell>
-                    <TableCell>blockNum</TableCell>
-                    <TableCell>prevDataHash</TableCell>
-                    <TableCell>timestamp</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>DataHash</TableCell>
+                    <TableCell>Num</TableCell>
+                    <TableCell>PrevDataHash</TableCell>
+                    <TableCell>Time</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {blockList.map((block, index) => (
-                    <TableRow key={index}>
-                      <TableCell>
-                        <LightTooltip title={block.blockDataHash}>
-                          <div style={stringStyle}>{block.blockDataHash}</div>
-                        </LightTooltip>
-                      </TableCell>
-                      <TableCell>{block.blockNum}</TableCell>
-                      <TableCell>
-                        <LightTooltip title={block.prevDataHash}>
-                          <div style={stringStyle}>{block.prevDataHash}</div>
-                        </LightTooltip>
-                      </TableCell>
-                      <TableCell>{block.timestamp}</TableCell>
-                    </TableRow>
+                    <Row key={index} block={block} />
                   ))}
                 </TableBody>
               </Table>

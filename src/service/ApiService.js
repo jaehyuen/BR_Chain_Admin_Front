@@ -6,12 +6,7 @@ const BASE_URL = "http://localhost:8080/api";
 // const BASE_URL = "http://34.64.205.180:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api/core";
 
-// axios.interceptors.request.use(function (config) {
-//   const token = cookies.token
-//   config.headers.Authorization =  token;
 
-//   return config;
-// });
 
 axios.interceptors.request.use(
   function(config) {
