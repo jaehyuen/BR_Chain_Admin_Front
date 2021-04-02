@@ -56,7 +56,8 @@ function Row(props) {
     width: "200px",
     whiteSpace: "nowrap",
   };
-
+  var txList= block.txList==null? new Array():block.txList.split(",")
+  console.log(block.txList)
   return (
     <React.Fragment>
       <TableRow
@@ -97,7 +98,18 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                {txList.map((tx)=>(
+                  <div>
+                  <Link
+                  component={RouterLink}
+                  to={"/test" + tx}
+                  variant="h6"
+                >
+                  {tx}
+                </Link>
+                </div>
+                ))}
+                {/* {block.txList == null? "tx없음":block.txList} */}
               </Typography>
             </Box>
           </Collapse>
