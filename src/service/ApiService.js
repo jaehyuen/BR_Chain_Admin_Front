@@ -234,6 +234,14 @@ export class ApiService {
       },
     });
   }
+
+  getBlockListByHash(blockDataHash) {
+    return axios.get(BASE_URL + "/core/block", {
+      params: {
+        blockDataHash: blockDataHash,
+      },
+    });
+  }
 }
 
 

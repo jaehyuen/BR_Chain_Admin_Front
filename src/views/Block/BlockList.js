@@ -24,6 +24,9 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 
+import BlockDetail from "./BlockDetail";
+import Popover from "@material-ui/core/Popover";
+
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +52,12 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   // const classes = useRowStyles();
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const stringStyle = {
     display: "block",
     overflow: "hidden",
@@ -56,8 +65,12 @@ function Row(props) {
     width: "200px",
     whiteSpace: "nowrap",
   };
-  var txList= block.txList==null? new Array():block.txList.split(",")
-  console.log(block.txList)
+  var txList = block.txList == null ? new Array() : block.txList.split(",");
+
+  const popOpen = Boolean(anchorEl);
+  const id = popOpen ? "simple-popover" : undefined;
+
+  console.log(block.txList);
   return (
     <React.Fragment>
       <TableRow
@@ -74,20 +87,49 @@ function Row(props) {
         </TableCell>
         <TableCell>
           <LightTooltip title={block.blockDataHash}>
-            <div style={stringStyle}>{block.blockDataHash}</div>
+          <Link
+            style={stringStyle}
+            onClick={(event) => {
+              // setSelectedMember(member);
+              setAnchorEl(event.currentTarget);
+            }}
+          >
+            {block.blockDataHash}
+          </Link>
           </LightTooltip>
+          <div>
+            <Popover
+              id={id}
+              open={popOpen}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              style={{ shadows: ["none"] }}
+            >
+              <BlockDetail blockDataHash={block.blockDataHash}></BlockDetail>
+            </Popover>
+          </div>
+
+          
         </TableCell>
         <TableCell>{block.blockNum}</TableCell>
         <TableCell>
           <LightTooltip title={block.prevDataHash}>
             <div style={stringStyle}>
-              <Link
+              {/* <Link
                 component={RouterLink}
-                to={"/test" + block.prevDataHash}
+                to={"app/transaction/" + block.prevDataHash}
                 variant="h6"
-              >
-                {block.prevDataHash}
-              </Link>
+              > */}
+              {block.prevDataHash}
+              {/* </Link> */}
             </div>
           </LightTooltip>
         </TableCell>
@@ -98,16 +140,16 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
-                {txList.map((tx)=>(
+                {txList.map((tx) => (
                   <div>
-                  <Link
-                  component={RouterLink}
-                  to={"/test" + tx}
-                  variant="h6"
-                >
-                  {tx}
-                </Link>
-                </div>
+                    <Link
+                      component={RouterLink}
+                      to={"/app/transaction/" + tx}
+                      variant="h6"
+                    >
+                      {tx}
+                    </Link>
+                  </div>
                 ))}
                 {/* {block.txList == null? "tx없음":block.txList} */}
               </Typography>

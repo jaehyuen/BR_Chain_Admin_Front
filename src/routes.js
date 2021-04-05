@@ -55,7 +55,9 @@ const routes = [
       { path: 'update/channel/:channelName', element: <ChannelUpdate  /> },
       { path: 'upload/chaincode', element: <UploadChaincode /> },
       { path: 'transaction', element: <OrgList /> },
+      { path: 'transaction/:txId', element: <OrgList /> },
       { path: 'block', element: <BlockList /> },
+      { path: 'block/:blockHash', element: <BlockList /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
