@@ -242,6 +242,14 @@ export class ApiService {
       },
     });
   }
+
+  getTxListByChannel(channelName) {
+    return axios.get(BASE_URL + "/core/transaction/list", {
+      params: {
+        channelName: channelName,
+      },
+    });
+  }
 }
 
 

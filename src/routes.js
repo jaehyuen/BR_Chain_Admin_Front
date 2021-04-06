@@ -27,6 +27,8 @@ import ContainerList from "src/views/Container/ContainerList";
 
 import BlockList from "src/views/Block/BlockList";
 
+import TxList from "src/views/Transaction/TxList";
+
 const routes = [
   {
     path: 'app1',
@@ -54,8 +56,8 @@ const routes = [
       { path: 'create/channel', element: <CreateChannel  /> },
       { path: 'update/channel/:channelName', element: <ChannelUpdate  /> },
       { path: 'upload/chaincode', element: <UploadChaincode /> },
-      { path: 'transaction', element: <OrgList /> },
-      { path: 'transaction/:txId', element: <OrgList /> },
+      { path: 'transaction', element: <TxList /> },
+      { path: 'transaction/:txId', element: <TxList /> },
       { path: 'block', element: <BlockList /> },
       { path: 'block/:blockHash', element: <BlockList /> },
       { path: 'dashboard', element: <DashboardView /> },
