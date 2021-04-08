@@ -123,13 +123,7 @@ function Row(props) {
         <TableCell>
           <LightTooltip title={block.prevDataHash}>
             <div style={stringStyle}>
-              {/* <Link
-                component={RouterLink}
-                to={"app/transaction/" + block.prevDataHash}
-                variant="h6"
-              > */}
               {block.prevDataHash}
-              {/* </Link> */}
             </div>
           </LightTooltip>
         </TableCell>
