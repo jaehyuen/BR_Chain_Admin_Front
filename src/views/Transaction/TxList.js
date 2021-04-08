@@ -19,14 +19,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import Select from "@material-ui/core/Select";
 
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import IconButton from "@material-ui/core/IconButton";
-import Collapse from "@material-ui/core/Collapse";
-
 import Popover from "@material-ui/core/Popover";
 
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import TxDetail from "./TxDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,15 +41,18 @@ const LightTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-function Row(props) {
-  const { block } = props;
-  const [open, setOpen] = React.useState(false);
-  // const classes = useRowStyles();
+const TxList = (props) => {
+  const classes = useStyles();
+  const [channelList, setChannelList] = useState([]);
+  const [txList, setTxist] = useState([]);
+  const [currentChannel, setCurrentChannel] = useState("");
+  const [currentTx, setCurrentTx] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClose = () => {
     setAnchorEl(null);
+    setCurrentTx("");
   };
 
   const stringStyle = {
@@ -64,87 +62,6 @@ function Row(props) {
     width: "200px",
     whiteSpace: "nowrap",
   };
-  var txList = block.txList == null ? new Array() : block.txList.split(",");
-
-  const popOpen = Boolean(anchorEl);
-  const id = popOpen ? "simple-popover" : undefined;
-
-  console.log(block.txList);
-  return (
-    <React.Fragment>
-      <TableRow
-      // className={classes.root}
-      >
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-        <TableCell>
-          <LightTooltip title={block.blockDataHash}>
-            <Link
-              style={stringStyle}
-              onClick={(event) => {
-                // setSelectedMember(member);
-                setAnchorEl(event.currentTarget);
-              }}
-            >
-              {block.blockDataHash}
-            </Link>
-          </LightTooltip>
-        </TableCell>
-        <TableCell>{block.blockNum}</TableCell>
-        <TableCell>
-          <LightTooltip title={block.prevDataHash}>
-            <div style={stringStyle}>
-              {/* <Link
-                component={RouterLink}
-                to={"app/transaction/" + block.prevDataHash}
-                variant="h6"
-              > */}
-              {block.prevDataHash}
-              {/* </Link> */}
-            </div>
-          </LightTooltip>
-        </TableCell>
-        <TableCell>{block.timestamp}</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                {txList.map((tx) => (
-                  <div>
-                    <Link
-                      component={RouterLink}
-                      to={"/app/transaction/" + tx}
-                      variant="h6"
-                    >
-                      {tx}
-                    </Link>
-                  </div>
-                ))}
-                {/* {block.txList == null? "tx없음":block.txList} */}
-              </Typography>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
-  );
-}
-
-const TxList = (props) => {
-  const classes = useStyles();
-  const navigate = useNavigate();
-  const [channelList, setChannelList] = useState([]);
-  const [txList, setTxist] = useState([]);
-  const [currentChannel, setCurrentChannel] = useState("");
 
   useEffect(() => {
     ApiService.getChannelList().then((result) => {
@@ -158,7 +75,7 @@ const TxList = (props) => {
     ApiService.getTxListByChannel(currentChannel).then((result) => {
       // var result =result.data.resultData
       setTxist(result.data.resultData);
-      console.log(result.data.resultData);
+      // console.log(result.data.resultData);
     });
   }, [currentChannel]);
 
@@ -186,20 +103,53 @@ const TxList = (props) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>creatorId</TableCell>
+                    <TableCell>txId</TableCell>
                     <TableCell>txType</TableCell>
                     <TableCell>channel</TableCell>
                     <TableCell>Time</TableCell>
                   </TableRow>
                 </TableHead>
+                <TableBody>
+                  {txList.map((tx, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{tx.creatorId}</TableCell>
+                      <TableCell>
+                        <LightTooltip title={tx.txId}>
+                          <Link
+                            style={stringStyle}
+                            onClick={(event) => {
+                              setAnchorEl(event.currentTarget);
+                              setCurrentTx(tx.txId);
+                            }}
+                          >
+                            {tx.txId}
+                          </Link>
+                        </LightTooltip>
 
-                {txList.map((tx, index) => (
-                  <TableBody>
-                    <TableCell>{tx.creatorId}</TableCell>
-                    <TableCell>{tx.txType}</TableCell>
-                    <TableCell>{currentChannel}</TableCell>
-                    <TableCell>{tx.timestamp}</TableCell>
-                  </TableBody>
-                ))}
+                        <Popover
+                          id={tx.txId}
+                          open={tx.txId == currentTx ? true : false}
+                          anchorEl={anchorEl}
+                          onClose={handleClose}
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "center",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "center",
+                          }}
+                          style={{ shadows: ["none"] }}
+                        >
+                          <TxDetail txId={tx.txId}></TxDetail>
+                        </Popover>
+                      </TableCell>
+                      <TableCell>{tx.txType}</TableCell>
+                      <TableCell>{currentChannel}</TableCell>
+                      <TableCell>{tx.timestamp}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
               </Table>
             </TableContainer>
           </Box>

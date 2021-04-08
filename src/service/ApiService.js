@@ -250,6 +250,14 @@ export class ApiService {
       },
     });
   }
+
+  getTxListByTx(txId) {
+    return axios.get(BASE_URL + "/core/transaction", {
+      params: {
+        txId: txId,
+      },
+    });
+  }
 }
 
 
