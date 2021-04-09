@@ -63,12 +63,12 @@ const items = [
   {
     href: '/app/block',
     icon: BoxIcon,
-    title: 'BlockTest'
+    title: 'Block'
   },
   {
     href: '/app/transaction',
     icon: ReceiptIcon,
-    title: 'TransactionTest'
+    title: 'Transaction'
   }
 
 ];

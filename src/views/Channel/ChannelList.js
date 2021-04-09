@@ -42,7 +42,7 @@ const ChannelList = props => {
       <Page className={classes.root} title="Channels">
         <Container maxWidth="lg">
           <Typography component="h1" variant="h5">
-            채널 리스트
+            Channel List
           </Typography>
           <Box mt={3}>
             <TableContainer component={Paper}>
@@ -84,7 +84,7 @@ const ChannelList = props => {
             </TableContainer>
             <br></br>
             <Button variant="contained" color="primary" href="/app/create/channel" disabled>
-              채널 추가
+              Add Channel
             </Button>
           </Box>
         </Container>

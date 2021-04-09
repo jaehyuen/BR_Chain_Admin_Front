@@ -132,7 +132,7 @@ const ContainerGraph = ({ className, ...rest }) => {
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
-      <CardHeader title="실행중인 컨테이너 현황" />
+      <CardHeader title="Running Container Status" />
       <Divider />
       <CardContent>
         <Box height={300} position="relative">
@@ -143,10 +143,10 @@ const ContainerGraph = ({ className, ...rest }) => {
             <Box key={title} p={1} textAlign="center">
               <Icon color="action" />
               <Typography color="textPrimary" variant="body1">
-                {title}
+                {title} 
               </Typography>
               <Typography style={{ color }} variant="h2">
-                {value}개
+                {value}
               </Typography>
             </Box>
           ))}

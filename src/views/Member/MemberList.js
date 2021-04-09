@@ -68,18 +68,18 @@ const MemberList = props => {
           <Page className={classes.root} title="Orgs">
             <Container maxWidth="lg">
               <Typography component="h1" variant="h5">
-                조직 상세정보
+              Organization Detail List
               </Typography>
               <Box mt={3}>
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>조직 이름</TableCell>
-                        <TableCell>맴버 타입</TableCell>
-                        <TableCell>컨테이너 번호</TableCell>
-                        <TableCell>컨테이너 이름</TableCell>
-                        <TableCell>컨테이너 포트</TableCell>
+                        <TableCell>Organization Name</TableCell>
+                        <TableCell>Organization Type</TableCell>
+                        <TableCell>Container Number</TableCell>
+                        <TableCell>Container Name</TableCell>
+                        <TableCell>Container Port</TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
@@ -101,7 +101,7 @@ const MemberList = props => {
                                 setAnchorEl(event.currentTarget);
                               }}
                             >
-                              세부정보
+                              Detail
                             </Button>
                             <Popover
                               id={id}

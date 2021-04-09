@@ -68,14 +68,14 @@ const TotalCustomers = ({ className, ...rest }) => {
           <Grid container justify="space-between" spacing={3}>
             <Grid item>
             {peerList.length == 0 ? (
-                  <div>피어없음</div>
+                  <div>No Peers</div>
                 ) : (
                   <div>
                   <Typography color="textSecondary" gutterBottom variant="h6">
-                  {peer.conName} 피어에
+                  In Peer {peer.conName} Has
                 </Typography>
                 <Typography color="textPrimary" variant="h4">
-                  설치된 체인코드 {peer.ccCnt} 개
+                 {peer.ccCnt} Chaincodes Installed
                 </Typography>
                 </div>
                 )}

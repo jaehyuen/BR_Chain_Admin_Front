@@ -62,7 +62,7 @@ const ChaincodeList = (props) => {
       <Page className={classes.root} title="Chaincodes">
           <Container maxWidth="lg">
           <Typography component="h1" variant="h5">
-            체인코드 리스트
+            Chaincode List
           </Typography>
             <Box mt={3}>
       <TableContainer component={Paper}>

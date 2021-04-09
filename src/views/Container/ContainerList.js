@@ -98,7 +98,7 @@ const ContainerList = (props) => {
           <Page className={classes.root} title="Containers">
             <Container maxWidth="lg">
               <Typography component="h1" variant="h5">
-                컨테이너 리스트
+                Container List
               </Typography>
               <Box mt={3}>
                 <TableContainer>

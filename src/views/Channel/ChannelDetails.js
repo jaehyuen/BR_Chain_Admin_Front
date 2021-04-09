@@ -104,20 +104,20 @@ const ChannelDetails = props => {
           <Page className={classes.root} title="Channels">
             <Container maxWidth="lg">
               <Typography component="h1" variant="h5">
-                채널 상세정보
+                Channel Detail Info
               </Typography>
               <Box mt={3}>
                 <br></br>
                 <Typography component="h1" variant="h6">
-                  {channelName}에 가입된 피어 리스트
+                  Joined Peer List in {channelName} Channel
                 </Typography>
                 <br></br>
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>컨테이너 이름</TableCell>
-                        <TableCell>앵커피어 여부</TableCell>
+                        <TableCell>Container Name</TableCell>
+                        <TableCell>Anchor YN</TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
@@ -131,7 +131,7 @@ const ChannelDetails = props => {
                           <TableCell>
                             <Button variant="contained" color="secondary"
                             onClick={()=>setAnchorPeer(channelList.conInfoDto.conName)}>
-                              앵커 설정
+                              Setting Anchor
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -141,16 +141,16 @@ const ChannelDetails = props => {
                 </TableContainer>
                 <br></br>
                 <Typography component="h1" variant="h6">
-                  {channelName}에 활성화된 체인코드 리스트
+                  Actived Chaincode List in {channelName} Channel
                 </Typography>
                 <br></br>
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>체인코드 이름</TableCell>
-                        <TableCell>체인코드 버전</TableCell>
-                        <TableCell>체인코드 언어</TableCell>
+                        <TableCell>Chaincode Name</TableCell>
+                        <TableCell>Chaincode Version</TableCell>
+                        <TableCell>Chaincode Lang</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -177,7 +177,7 @@ const ChannelDetails = props => {
                   }}
                   disabled
                 >
-                  체인코드 활성화
+                  Active Chaincode
                 </Button>
                 <Popover
                   id={id}
@@ -204,7 +204,7 @@ const ChannelDetails = props => {
                 <br></br>
                 <br></br>
                 <Typography component="h1" variant="h6">
-                  {channelName} 채널 설정
+                  {channelName} Channel Setting
                 </Typography>
                 <br></br>
                 <TableContainer component={Paper}>
@@ -270,7 +270,7 @@ const ChannelDetails = props => {
                   href={"/app/update/channel/"+channelName}
                   disabled
                 >
-                  채널 설정 변경
+                  Change Channel Setting
                 </Button>
                 <br></br>
                 <br></br>
@@ -281,7 +281,7 @@ const ChannelDetails = props => {
                   color="primary"
                   onClick={registerEventListener}
                 >
-                  이벤트 리슨 활성화
+                  Active Event Listen
                 </Button>
               </Box>
             </Container>

@@ -128,7 +128,7 @@ const ChannelGraph = ({ className, ...rest }) => {
       {...rest}
     >
       <CardHeader
-        title="채널 현황"
+        title="Channel Status"
       />
       <Divider />
       <CardContent>

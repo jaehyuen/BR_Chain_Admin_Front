@@ -194,7 +194,7 @@ const BlockList = (props) => {
                 </MenuItem>
               ))}
             </Select>
-            채널 블록 정보
+            Block Info
           </Typography>
           <Box mt={3}>
             <TableContainer component={Paper}>

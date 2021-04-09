@@ -221,15 +221,15 @@ const MemberDetails = (props) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography className={classes.heading}>가입한 채널 목록</Typography>
+          <Typography className={classes.heading}>Joined Channel List</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>채널 이름</TableCell>
-                  <TableCell>앵커피어 여부</TableCell>
+                  <TableCell>Channel Name</TableCell>
+                  <TableCell>Anchor YN</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -251,7 +251,7 @@ const MemberDetails = (props) => {
           id="panel2a-header"
         >
           <Typography className={classes.heading}>
-            설치된 체인코드 목록
+            Installed Chaincode List
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -259,9 +259,9 @@ const MemberDetails = (props) => {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>체인코드 이름</TableCell>
-                  <TableCell>체인코드 버전</TableCell>
-                  <TableCell>체인코드 언어</TableCell>
+                  <TableCell>Chaincode Name</TableCell>
+                  <TableCell>Chaincode Version</TableCell>
+                  <TableCell>Chaincode Lang</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -283,7 +283,7 @@ const MemberDetails = (props) => {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography className={classes.heading}>체인코드 설치</Typography>
+          <Typography className={classes.heading}>Install Chaincode</Typography>
         </AccordionSummary>
         <form className={classes.form} onSubmit={installChaincode}>
           <AccordionDetails>
@@ -318,7 +318,7 @@ const MemberDetails = (props) => {
                   color="primary"
                   className={classes.submit}
                 >
-                  체인코드 설치
+                  Chaincode Install
                 </Button>
               </ListItem>
               <ConfirmationDialogRaw

@@ -49,7 +49,7 @@ const OrgList = props => {
       <Page className={classes.root} title="Orgs">
         <Container maxWidth="lg">
           <Typography component="h1" variant="h5">
-            조직 리스트
+          Organization List
           </Typography>
           <Box mt={3}>
             <TableContainer component={Paper}>
@@ -79,7 +79,7 @@ const OrgList = props => {
                             navigate('/app/org/member/' + org.orgName)
                           }
                         >
-                          조직 상세 정보
+                          Organization Detail Info
                         </Button>
                       </TableCell>
                       <TableCell>
@@ -91,7 +91,7 @@ const OrgList = props => {
                           color="secondary"
                           onClick={() => removeOrgContainer(org.orgName)}
                         >
-                          삭제
+                          Delete
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -101,7 +101,7 @@ const OrgList = props => {
             </TableContainer>
             <br></br>
             <Button variant="contained" color="primary" href="/app/create/org" disabled>
-              조직추가
+              Add Organization
             </Button>
           </Box>
         </Container>

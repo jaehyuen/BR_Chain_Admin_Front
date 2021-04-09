@@ -85,17 +85,17 @@ const ChannelSummary = ({ className, ...rest }) => {
             <Grid item>
               <Typography color="textSecondary" gutterBottom variant="h6">
                 {channelList.length == 0 ? (
-                  <div>채널없음</div>
+                  <div>No Channel</div>
                 ) : (
-                  <div>{channel.channelName} 채널</div>
+                  <div>{channel.channelName} Channel</div>
                 )}
               </Typography>
-              <Typography color="textPrimary" variant="h4">
+              <Typography color="textPrimary" variant="h5">
                 {channelList.length == 0 ? (
                   <div></div>
                 ) : (
                   <div>
-                    3월 블록수 : {channel.nowBlockCnt}, 트렌젝션수 :{" "}
+                    This Month Block : {channel.nowBlockCnt}, Transaction :{" "}
                     {channel.nowTxCnt}
                   </div>
                 )}

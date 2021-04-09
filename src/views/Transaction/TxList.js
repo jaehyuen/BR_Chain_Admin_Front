@@ -95,17 +95,17 @@ const TxList = (props) => {
                 </MenuItem>
               ))}
             </Select>
-            채널 트렌젝션 정보
+            Transaction Info
           </Typography>
           <Box mt={3}>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>creatorId</TableCell>
-                    <TableCell>txId</TableCell>
-                    <TableCell>txType</TableCell>
-                    <TableCell>channel</TableCell>
+                    <TableCell>Creator</TableCell>
+                    <TableCell>TransactionID</TableCell>
+                    <TableCell>TransactionType</TableCell>
+                    <TableCell>Channel</TableCell>
                     <TableCell>Time</TableCell>
                   </TableRow>
                 </TableHead>
