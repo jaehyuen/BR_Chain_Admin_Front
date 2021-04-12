@@ -10,17 +10,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
-
 import Typography from "@material-ui/core/Typography";
-
 import Page from "src/components/Page";
 import Tooltip from "@material-ui/core/Tooltip";
 import MenuItem from "@material-ui/core/MenuItem";
-
 import Select from "@material-ui/core/Select";
-
 import Popover from "@material-ui/core/Popover";
-
+import Pagination from "@material-ui/lab/Pagination";
 import TxDetail from "./TxDetail";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +46,9 @@ const TxList = (props) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const [noOfPages, setNoOfPages] = useState(0);
+  const [page, setPage] = useState(1);
+
   const handleClose = () => {
     setAnchorEl(null);
     setCurrentTx("");
@@ -73,13 +72,18 @@ const TxList = (props) => {
 
   useEffect(() => {
     ApiService.getTxListByChannel(currentChannel).then((result) => {
-      // var result =result.data.resultData
+      
       setTxist(result.data.resultData);
-      // console.log(result.data.resultData);
+      setNoOfPages(Math.ceil(result.data.resultData.length / 10));
+      
     });
   }, [currentChannel]);
 
-  const handleChange = (event) => {
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  const channelChange = (event) => {
     setCurrentChannel(event.target.value);
   };
 
@@ -88,7 +92,7 @@ const TxList = (props) => {
       <Page className={classes.root} title="Blocks">
         <Container maxWidth="lg">
           <Typography component="h1" variant="h5">
-            <Select onChange={handleChange}>
+            <Select onChange={channelChange}>
               {channelList.map((channel) => (
                 <MenuItem value={channel.channelName}>
                   {channel.channelName}
@@ -110,7 +114,7 @@ const TxList = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {txList.map((tx, index) => (
+                  {txList.slice((page - 1) * 10, page * 10).map((tx, index) => (
                     <TableRow key={index}>
                       <TableCell>{tx.creatorId}</TableCell>
                       <TableCell>
@@ -152,6 +156,17 @@ const TxList = (props) => {
                 </TableBody>
               </Table>
             </TableContainer>
+            <br></br>
+            <Pagination
+              count={noOfPages}
+              page={page}
+              onChange={handleChange}
+              defaultPage={1}
+              color="primary"
+              size="large"
+              showFirstButton
+              showLastButton
+            />
           </Box>
         </Container>
       </Page>

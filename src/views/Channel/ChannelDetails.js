@@ -175,7 +175,7 @@ const ChannelDetails = props => {
                     setSelectedMember('zz');
                     setAnchorEl(event.currentTarget);
                   }}
-                  disabled
+                  // disabled
                 >
                   Active Chaincode
                 </Button>
@@ -268,14 +268,14 @@ const ChannelDetails = props => {
                   color="primary"
                   // onClick={updateChannelConfig}
                   href={"/app/update/channel/"+channelName}
-                  disabled
+                  // disabled
                 >
                   Change Channel Setting
                 </Button>
                 <br></br>
                 <br></br>
                 <Button
-                disabled
+                // disabled
                   aria-describedby={id}
                   variant="contained"
                   color="primary"

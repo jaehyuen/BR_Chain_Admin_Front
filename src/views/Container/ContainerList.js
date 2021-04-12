@@ -166,7 +166,7 @@ const ContainerList = (props) => {
                   />
 
                   <Button
-                    disabled
+                    // disabled
                     variant="contained"
                     color="secondary"
                     onClick={removeAllContainers}

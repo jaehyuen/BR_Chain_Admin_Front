@@ -72,9 +72,9 @@ const TotalCustomers = ({ className, ...rest }) => {
                 ) : (
                   <div>
                   <Typography color="textSecondary" gutterBottom variant="h6">
-                  In Peer {peer.conName} Has
+                  Peer {peer.conName}
                 </Typography>
-                <Typography color="textPrimary" variant="h4">
+                <Typography color="textPrimary" variant="h5">
                  {peer.ccCnt} Chaincodes Installed
                 </Typography>
                 </div>

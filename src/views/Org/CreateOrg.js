@@ -180,10 +180,10 @@ const CreateOrg = (props) => {
                 <CssBaseline />
                 <div className={classes.paper}>
                   <Typography component="h1" variant="h5">
-                    {orgType} 조직생성 테스트
+                    {orgType} Create Organization
                   </Typography>
                   <br />
-                  조직 타입
+                  Organization Type
                   <br />
                   <br />
                   <form className={classes.form} onSubmit={createOrg}>
@@ -217,7 +217,7 @@ const CreateOrg = (props) => {
                           required
                           fullWidth
                           id="orgName"
-                          label="조직 명"
+                          label="Organization Name"
                           name="orgName"
                           onChange={onChangeOrgName}
                         />
@@ -228,7 +228,7 @@ const CreateOrg = (props) => {
                           variant="outlined"
                           fullWidth
                           id="conType"
-                          label="컨테이너 타입"
+                          label="Container Type"
                           defaultValue="Ca"
                           disabled
                         />
@@ -241,12 +241,12 @@ const CreateOrg = (props) => {
                           fullWidth
                           type="number"
                           id="caPort"
-                          label="ca 포트"
+                          label="Ca Server Port"
                           name="caPort"
                           onChange={onChangeCaPort}
                           error={portCheck == false}
                           helperText={
-                            portCheck == false ? "사용중인 포트입니다." : ""
+                            portCheck == false ? "Port is already in use" : ""
                           }
                         />
                       </Grid>
@@ -257,7 +257,7 @@ const CreateOrg = (props) => {
                           color="primary"
                           onClick={() => onClickPortCheck(caPort)}
                         >
-                          포트 확인
+                          Port Check
                         </Button>
                         {portCheck == false && <CloseIcon></CloseIcon>}
                         {portCheck == true && <CheckIcon></CheckIcon>}
@@ -280,7 +280,7 @@ const CreateOrg = (props) => {
                             color="primary"
                             onClick={addMember}
                           >
-                            {orgType} 추가
+                            {orgType} Add
                           </Button>
                         )}
                       </Grid>
@@ -292,7 +292,7 @@ const CreateOrg = (props) => {
                           color="primary"
                           className={classes.submit}
                         >
-                          조직 생성
+                          Create Organization 
                         </Button>
                       </Grid>
                     </Grid>

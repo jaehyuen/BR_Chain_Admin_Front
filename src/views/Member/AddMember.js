@@ -95,7 +95,7 @@ class AddMember extends Component {
             name="conPort"
             onChange={this.onChangePort}
             error={this.state.portCheck ==false}
-            helperText={this.state.portCheck ==false? "사용중인 포트입니다." : ""}
+            helperText={this.state.portCheck ==false? "Port is already in use" : ""}
           />
         </Grid>
         {conType === "peer" && (
