@@ -107,7 +107,7 @@ const ChaincodeList = (props) => {
                           color="secondary"
                           onClick={() => removeCc(cc.ccName)}
                         >
-                          삭제
+                          Delete
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -135,7 +135,7 @@ const ChaincodeList = (props) => {
               color="primary"
               href="/app/upload/chaincode"
             >
-              체인코드 업로드
+              Chaincode Upload
             </Button>
             </Grid>
           </Box>

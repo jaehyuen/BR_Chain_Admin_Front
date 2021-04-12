@@ -52,7 +52,9 @@ const ChannelDetails = props => {
       setChannelListPeer(result.data.resultData);
     });
     ApiService.getCcListChannel(channelName).then(result => {
+      console.log(channelName)
       setChaincodeListChannel(result.data.resultData);
+      console.log(result.data.resultData)
     });
     ApiService.getChannelListByChannelName(channelName).then(result => {
       setChannelInfo(result.data.resultData);
@@ -104,7 +106,7 @@ const ChannelDetails = props => {
           <Page className={classes.root} title="Channels">
             <Container maxWidth="lg">
               <Typography component="h1" variant="h5">
-                Channel Detail Info
+              {channelName} Channel Detail Info
               </Typography>
               <Box mt={3}>
                 <br></br>
