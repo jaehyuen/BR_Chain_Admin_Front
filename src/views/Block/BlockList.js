@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../service/ApiService";
-
 import { Box, Container, makeStyles, Link } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,23 +9,18 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
-
 import Typography from "@material-ui/core/Typography";
-
 import Page from "src/components/Page";
 import Tooltip from "@material-ui/core/Tooltip";
 import MenuItem from "@material-ui/core/MenuItem";
-
 import Select from "@material-ui/core/Select";
-
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
-
 import BlockDetail from "./BlockDetail";
 import Popover from "@material-ui/core/Popover";
-
+import Pagination from "@material-ui/lab/Pagination";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -162,6 +156,9 @@ const BlockList = (props) => {
   const [blockList, setBlockList] = useState([]);
   const [currentChannel, setCurrentChannel] = useState("");
 
+  const [noOfPages, setNoOfPages] = useState(0);
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
     ApiService.getChannelList().then((result) => {
       // var result =result.data.resultData
@@ -174,11 +171,16 @@ const BlockList = (props) => {
     ApiService.getBlockListByChannel(currentChannel).then((result) => {
       // var result =result.data.resultData
       setBlockList(result.data.resultData);
+      setNoOfPages(Math.ceil(result.data.resultData.length / 10));
       console.log(result.data.resultData);
     });
   }, [currentChannel]);
 
-  const handleChange = (event) => {
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  const channelChange = (event) => {
     setCurrentChannel(event.target.value);
   };
 
@@ -187,7 +189,7 @@ const BlockList = (props) => {
       <Page className={classes.root} title="Blocks">
         <Container maxWidth="lg">
           <Typography component="h1" variant="h5">
-            <Select onChange={handleChange}>
+            <Select onChange={channelChange}>
               {channelList.map((channel) => (
                 <MenuItem value={channel.channelName}>
                   {channel.channelName}
@@ -209,12 +211,23 @@ const BlockList = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {blockList.map((block, index) => (
+                  {blockList.slice((page - 1) * 10, page * 10).map((block, index) => (
                     <Row key={index} block={block} />
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
+            <br></br>
+            <Pagination
+              count={noOfPages}
+              page={page}
+              onChange={handleChange}
+              defaultPage={1}
+              color="primary"
+              size="large"
+              showFirstButton
+              showLastButton
+            />
           </Box>
         </Container>
       </Page>
