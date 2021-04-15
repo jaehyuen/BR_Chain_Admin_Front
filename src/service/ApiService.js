@@ -40,6 +40,8 @@ axios.interceptors.response.use(
           console.log(result.data);
           setCookieValue("accessToken", result.data.resultData.accessToken);
         });
+
+        return axios.request(error.config);
       } else {
         document.location.href = "/login";
       }
