@@ -83,7 +83,7 @@ const LoginView = () => {
                 })
                 .catch((error) => {
                   setSubmitting(false);
-                  if (error.response.status == 403) {
+                  if (error.response.status == 401) {
                     alert("아이디 또는 패스워드를 확인해주세요.");
                   }
                 });

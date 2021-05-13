@@ -86,6 +86,8 @@ const ChannelDetails = props => {
       
       alert(result.data.resultMessage);
       // props.history.push("/org");
+    }).catch(error =>{
+      alert(error.response.data.resultData);
     });
 
   };

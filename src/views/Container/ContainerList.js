@@ -45,10 +45,11 @@ const ContainerList = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log("useEffect");
     ApiService.getContainerList().then((result) => {
       setConList(result.data.resultData);
       setNoOfPages(Math.ceil(result.data.resultData.length / 10));
-      console.log("Zz");
+      
     });
   }, []);
 
