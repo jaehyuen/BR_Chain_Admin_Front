@@ -10,13 +10,12 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import Typography from '@material-ui/core/Typography';
-import ChaincodeListChannel from '../Chaincode/ChaincodeListChannel';
+import ChaincodeListChannel from '../chaincode/ChaincodeListChannel';
 import { Box, Container, makeStyles } from '@material-ui/core';
 import Popover from '@material-ui/core/Popover';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
+
 import Page from 'src/components/Page';
 import { useNavigate, useParams } from 'react-router-dom';
 

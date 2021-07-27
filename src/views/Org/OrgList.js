@@ -76,7 +76,7 @@ const OrgList = (props) => {
                     <TableRow key={index}>
                       <TableCell>{org.orgType}</TableCell>
                       <TableCell> {org.orgName}</TableCell>
-                      <TableCell>{org.conCnt}</TableCell>
+                      <TableCell>{org.memberCnt}</TableCell>
                       <TableCell>
                         <Button
                           value={org.orgName}

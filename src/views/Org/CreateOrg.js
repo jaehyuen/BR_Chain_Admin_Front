@@ -103,7 +103,7 @@ const CreateOrg = (props) => {
       orgType: orgType,
       conType: "ca",
       conPort: caPort,
-      conCnt: conCnt + 1,
+      conNum: conCnt + 1,
       portCheck: portCheck,
     };
 

@@ -11,23 +11,23 @@ import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 // import SettingsView from 'src/views/settings/SettingsView';
 
-import OrgList from 'src/views/Org/OrgList';
-import CreateOrg from 'src/views/Org/CreateOrg';
+import OrgList from 'src/views/org/OrgList';
+import CreateOrg from 'src/views/org/CreateOrg';
 import MemberList from "src/views/Member/MemberList";
 
-import ChannelList from "src/views/Channel/ChannelList";
-import CreateChannel from "src/views/Channel/CreateChannel";
-import ChannelDetails from "src/views/Channel/ChannelDetails";
-import ChannelUpdate from "src/views/Channel/ChannelUpdate";
+import ChannelList from "src/views/channel/ChannelList";
+import CreateChannel from "src/views/channel/CreateChannel";
+import ChannelDetails from "src/views/channel/ChannelDetails";
+import ChannelUpdate from "src/views/channel/ChannelUpdate";
 
-import ChaincodeList from "src/views/Chaincode/ChaincodeList";
-import UploadChaincode from "src/views/Chaincode/UploadChaincode";
+import ChaincodeList from "src/views/chaincode/ChaincodeList";
+import UploadChaincode from "src/views/chaincode/UploadChaincode";
 
-import ContainerList from "src/views/Container/ContainerList";
+import ContainerList from "src/views/container/ContainerList";
 
-import BlockList from "src/views/Block/BlockList";
+import BlockList from "src/views/block/BlockList";
 
-import TxList from "src/views/Transaction/TxList";
+import TxList from "src/views/transaction/TxList";
 
 const routes = [
   {

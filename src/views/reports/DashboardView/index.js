@@ -6,12 +6,9 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import ChannelSummary from './ChannelSummary';
-import LatestOrders from './LatestOrders';
-import LatestProducts from './LatestProducts';
 import ChannelGraph from './ChannelGraph';
 import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
-import TotalProfit from './TotalProfit';
 import ContainerGraph from './ContainerGraph';
 
 const useStyles = makeStyles((theme) => ({

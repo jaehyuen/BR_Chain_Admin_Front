@@ -49,7 +49,6 @@ const ContainerList = (props) => {
     ApiService.getContainerList().then((result) => {
       setConList(result.data.resultData);
       setNoOfPages(Math.ceil(result.data.resultData.length / 10));
-      
     });
   }, []);
 
@@ -71,11 +70,12 @@ const ContainerList = (props) => {
   };
 
   const removeContainer = async (conId) => {
-    console.log(this.props);
+    
     setIsLoading(true);
 
     await ApiService.removeContainers(conId).then((result) => {
       ApiService.getContainerList().then((result2) => {
+        setIsLoading(false);
         setConList(result2.data.resultData);
         setNoOfPages(Math.ceil(result.data.resultData.length / 10));
       });
@@ -111,7 +111,7 @@ const ContainerList = (props) => {
                         <TableCell>Port</TableCell>
                         <TableCell>CreateTime</TableCell>
                         <TableCell>Status</TableCell>
-                        {/* <TableCell></TableCell> */}
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -134,17 +134,16 @@ const ContainerList = (props) => {
                             <TableCell>{org.conPort}</TableCell>
                             <TableCell>{org.conCreated}</TableCell>
                             <TableCell>{org.conStatus}</TableCell>
-                            {/* <TableCell>
-                          {" "}
-                          <Button
-                            value={org.conId}
-                            variant="contained"
-                            color="secondary"
-                            onClick={() => this.removeContainer(org.conId)}
-                          >
-                            삭제
-                          </Button>
-                        </TableCell> */}
+                            <TableCell>
+                              <Button
+                                value={org.conId}
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => removeContainer(org.conId)}
+                              >
+                                delete
+                              </Button>
+                            </TableCell>
                           </TableRow>
                         ))}
                     </TableBody>
