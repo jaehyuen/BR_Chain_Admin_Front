@@ -109,13 +109,15 @@ export class ApiService {
     };
     return await axios.post(BASE_URL + "/core/chaincode/upload", data, config);
   }
-  async removeContainers(id) {
-    return await axios.get(BASE_URL + "/core/container/remove", {
-      params: {
-        conId: id,
-      },
-    });
+  async removeContainer(id) {
+    var url=BASE_URL+"/core/container/remove/"+id
+    return await axios.delete(url);
   }
+  
+  async removeAllContainers() {
+    return await axios.delete(BASE_URL+"/core/container/remove");
+  }
+
   async removeOrgContainers(orgName) {
     return await axios.get(BASE_URL + "/core/container/remove", {
       params: {
