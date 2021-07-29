@@ -59,7 +59,7 @@ const ContainerList = (props) => {
   const removeAllContainers = async () => {
     setIsLoading(true);
 
-    await ApiService.removeContainers("").then((result) => {
+    await ApiService.removeAllContainers().then((result) => {
       setIsLoading(false);
 
       ApiService.getContainerList().then((result2) => {
@@ -73,7 +73,7 @@ const ContainerList = (props) => {
     
     setIsLoading(true);
 
-    await ApiService.removeContainers(conId).then((result) => {
+    await ApiService.removeContainer(conId).then((result) => {
       ApiService.getContainerList().then((result2) => {
         setIsLoading(false);
         setConList(result2.data.resultData);
