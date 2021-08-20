@@ -1,30 +1,26 @@
 import React from "react";
 import axios from "axios";
-import {
-  useCookies
-} from "react-cookie";
+import { useCookies } from "react-cookie";
 const BASE_URL = "http://localhost:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api";
 // const BASE_URL = "http://34.64.205.180:8080/api";
 // const BASE_URL = "http://192.168.65.169:8080/api/core";
 
-
-
 axios.interceptors.request.use(
-  function (config) {
+  function(config) {
     config.headers.Authorization = "Bearer " + getCookieValue("accessToken");
     return config;
   },
-  function (error) {
+  function(error) {
     return Promise.reject(error);
   }
 );
 
 axios.interceptors.response.use(
-  function (response) {
+  function(response) {
     return response;
   },
-  async function (error) {
+  async function(error) {
     const status = error.response.status;
 
     if (status == 401 && error.response.data.resultCode == "8031") {
@@ -33,16 +29,14 @@ axios.interceptors.response.use(
       const userId = getCookieValue("userId");
 
       if (accessToken != " " && refreshToken != " " && userId != " ") {
-
         var data = {
           refreshToken: refreshToken,
           userId: userId,
         };
-        var result = await axios.post(BASE_URL + "/auth/refresh", data)
+        var result = await axios.post(BASE_URL + "/auth/refresh", data);
         setCookieValue("accessToken", result.data.resultData.accessToken);
         return axios.request(error.config);
       } else {
-
         document.location.href = "/login";
       }
     }
@@ -110,20 +104,17 @@ export class ApiService {
     return await axios.post(BASE_URL + "/core/chaincode/upload", data, config);
   }
   async removeContainer(id) {
-    var url=BASE_URL+"/core/container/remove/"+id
+    var url = BASE_URL + "/core/container//" + id;
     return await axios.delete(url);
   }
-  
+
   async removeAllContainers() {
-    return await axios.delete(BASE_URL+"/core/container/remove");
+    return await axios.delete(BASE_URL + "/core/container/");
   }
 
   async removeOrgContainers(orgName) {
-    return await axios.get(BASE_URL + "/core/container/remove", {
-      params: {
-        orgName: orgName,
-      },
-    });
+    var url = BASE_URL + "/core/org/" + orgName;
+    return await axios.delete(url);
   }
 
   async updateAnchor(channelName, conName) {
@@ -264,7 +255,5 @@ export class ApiService {
     });
   }
 }
-
-
 
 export default new ApiService();

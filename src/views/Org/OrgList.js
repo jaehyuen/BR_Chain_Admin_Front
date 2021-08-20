@@ -91,7 +91,7 @@ const OrgList = (props) => {
                       <TableCell>
                         {" "}
                         <Button
-                          disabled
+                          //disabled
                           value={org.orgName}
                           variant="contained"
                           color="secondary"
