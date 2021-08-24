@@ -82,6 +82,19 @@ const ContainerList = (props) => {
     });
   };
 
+  const rebootContainer = async (conId) => {
+    
+    setIsLoading(true);
+
+    await ApiService.rebootContainer(conId).then((result) => {
+      ApiService.getContainerList().then((result2) => {
+        setIsLoading(false);
+        setConList(result2.data.resultData);
+        setNoOfPages(Math.ceil(result.data.resultData.length / 10));
+      });
+    });
+  };
+
   const stringStyle = {
     display: "block",
     overflow: "hidden",
@@ -111,6 +124,7 @@ const ContainerList = (props) => {
                         <TableCell>Port</TableCell>
                         <TableCell>CreateTime</TableCell>
                         <TableCell>Status</TableCell>
+                        <TableCell></TableCell>
                         <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
@@ -142,6 +156,16 @@ const ContainerList = (props) => {
                                 onClick={() => removeContainer(org.conId)}
                               >
                                 delete
+                              </Button>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                value={org.conId}
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => rebootContainer(org.conId)}
+                              >
+                                reboot
                               </Button>
                             </TableCell>
                           </TableRow>

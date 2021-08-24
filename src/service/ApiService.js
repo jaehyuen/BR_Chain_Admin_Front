@@ -117,6 +117,11 @@ export class ApiService {
     return await axios.delete(url);
   }
 
+  async rebootContainer(id) {
+    var url = BASE_URL + "/core/container/reboot/" + id;
+    return await axios.get(url);
+  }
+
   async updateAnchor(channelName, conName) {
     return await axios.get(BASE_URL + "/core/channel/update/anchor", {
       params: {
