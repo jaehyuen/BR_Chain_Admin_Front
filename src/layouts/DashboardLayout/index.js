@@ -9,10 +9,10 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-// let sockJS = new SockJS('http://localhost:8080/sock');
+let sockJS = new SockJS('http://localhost:8080/sock');
 
 // let sockJS = new SockJS('http://192.168.65.169:8080/sock');
-// let stompClient = Stomp.over(sockJS);
+let stompClient = Stomp.over(sockJS);
 // stompClient.debug = () => {};
 
 
@@ -54,21 +54,21 @@ const DashboardLayout = (props) => {
 
 
   const { enqueueSnackbar } = useSnackbar();
-  // stompClient.connect({}, () => {
-  //   stompClient.subscribe('/rooms', data => {
-  //     setContents(data.body);
-  //     enqueueSnackbar("on event block num is"+data.body);
-  //   });
-  // });
-  // useEffect(() => {
-  //   console.log('z');
-  //   stompClient.connect({}, () => {
-  //     stompClient.subscribe('/event', data => {
-  //       setContents(data.body);
-  //       enqueueSnackbar("on event zz "+data.body);
-  //     });
-  //   });
-  // }, [contents]);
+  stompClient.connect({}, () => {
+    stompClient.subscribe('/rooms', data => {
+      setContents(data.body);
+      enqueueSnackbar("on event block num is"+data.body);
+    });
+  });
+  useEffect(() => {
+    console.log('z');
+    stompClient.connect({}, () => {
+      stompClient.subscribe('/event', data => {
+        setContents(data.body);
+        enqueueSnackbar("on event zz "+data.body);
+      });
+    });
+  }, [contents]);
   return (
 
     <div className={classes.root}>
